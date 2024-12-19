@@ -19,7 +19,7 @@ class Complex:
 
 
 	def __mul__(self: "Complex", other: "Complex") -> "Complex":
-		return Complex()
+		return Complex(self.r * other.r - self.i * other.i, self.r * other.i + self.i * other.r)
 
 
 	def __truediv__(self: "Complex", other: "Complex") -> "Complex":
@@ -32,6 +32,8 @@ class Complex:
 		pass
 
 
-	def abs()
+	def abs(self: "Complex") -> float:
+		pass
+
 
 	def from_polar()
