@@ -58,4 +58,10 @@ Chien *cree_chien(char *nom, char sexe, char vaccine);
 * ont été chargés depuis le fichier {nom_fichier}.
 * NULL en cas d’erreur
 */
-Portee *cree_portee(char *nom_pere, char *nom_mere, unsigned short nb_chiots, char *nom_fichier, Date date_naissance);
+Portee *cree_portee(char *nom_pere, char *nom_mere, unsigned short nb_chiots, char *nom_fichier, Date date_naissance);
+
+
+
+
+
+Portee *cree_portee_2(char *nom_pere, char *nom_mere, unsigned short nb_chiots, char *nom_fichier, Date date_naissance);

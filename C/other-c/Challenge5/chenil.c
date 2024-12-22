@@ -1,3 +1,4 @@
+#include <assert.h>
 #include "chenil.h"
 
 
@@ -25,6 +26,8 @@ Chien *cree_chien(char *nom, char sexe, char vaccine) {
 
 
 Portee *cree_portee(char *nom_pere, char *nom_mere, unsigned short nb_chiots, char *nom_fichier, Date date_naissance) {
+	assert(nom_pere && nom_mere && nom_fichier && nb_chiots > 0);
+
 	if (!nom_pere || !nom_mere || !nom_fichier || nb_chiots < 1) return NULL;
 
 	Chien *chiots = malloc(nb_chiots * sizeof(Chien));
@@ -58,6 +61,49 @@ Portee *cree_portee(char *nom_pere, char *nom_mere, unsigned short nb_chiots, ch
 	portee->pere = pere;
 	portee->mere = mere;
 	portee->chiots = chiots;
+	portee->nb_chiots = nb_chiots;
+	portee->date_naissance = date_naissance;
+
+	return portee;}
+
+
+Portee *cree_portee_2(char *nom_pere, char *nom_mere, unsigned short nb_chiots, char *nom_fichier, Date date_naissance) {
+	assert(nom_pere && nom_mere && nom_fichier && nb_chiots > 0);
+
+	Portee *portee = (Portee*)malloc(sizeof(Portee));
+	if (portee == NULL) {
+		return NULL;
+	}
+
+	portee->pere = cree_chien(nom_pere, 'M', 1);
+	if (portee->pere == NULL) {
+		free(portee);
+		return NULL;
+	}
+
+	portee->mere = cree_chien(nom_mere, 'F', 1);
+	if (portee->mere == NULL) {
+		free(portee->pere);
+		free(portee);
+		return NULL;
+	}
+
+	portee->chiots = (Chien *)malloc(nb_chiots * sizeof(Chien));
+	if (portee->chiots == NULL) {
+		free(portee->pere);
+		free(portee->mere);
+		free(portee);
+		return NULL;
+	}
+
+	if (charger_chiots(nom_fichier, portee->chiots, nb_chiots) == -1) {
+		free(portee->chiots);
+		free(portee->pere);
+		free(portee->mere);
+		free(portee);
+		return NULL;
+	}
+
 	portee->nb_chiots = nb_chiots;
 	portee->date_naissance = date_naissance;
 
