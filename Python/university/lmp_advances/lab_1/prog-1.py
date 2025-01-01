@@ -24,16 +24,18 @@ class Complex:
 
 	def __truediv__(self: "Complex", other: "Complex") -> "Complex":
 		pass
-		math.nan
+		return Complex()
 
 
 	def conj(self: "Complex") -> "Complex":
 		return Complex(self.r, -self.i)
-		pass
 
 
 	def abs(self: "Complex") -> float:
 		pass
+		return 0
 
 
-	def from_polar()
+	def from_polar(self: "Complex"):
+		pass
+
