@@ -1,0 +1,207 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Git\\code-dumb\\C#\\TestASP\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F9649075-C440-41CA-8997-CC5DBFD69229}|Empty\\Empty.csproj|c:\\git\\code-dumb\\c#\\testasp\\empty\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9649075-C440-41CA-8997-CC5DBFD69229}|Empty\\Empty.csproj|solutionrelative:empty\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{149FD6E1-6DB4-47B7-A1E4-82604A43EA7A}|TestASP\\TestASP.csproj|c:\\git\\code-dumb\\c#\\testasp\\testasp\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{149FD6E1-6DB4-47B7-A1E4-82604A43EA7A}|TestASP\\TestASP.csproj|solutionrelative:testasp\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{149FD6E1-6DB4-47B7-A1E4-82604A43EA7A}|TestASP\\TestASP.csproj|c:\\git\\code-dumb\\c#\\testasp\\testasp\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{149FD6E1-6DB4-47B7-A1E4-82604A43EA7A}|TestASP\\TestASP.csproj|solutionrelative:testasp\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{149FD6E1-6DB4-47B7-A1E4-82604A43EA7A}|TestASP\\TestASP.csproj|c:\\git\\code-dumb\\c#\\testasp\\testasp\\wwwroot\\js\\site.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{149FD6E1-6DB4-47B7-A1E4-82604A43EA7A}|TestASP\\TestASP.csproj|solutionrelative:testasp\\wwwroot\\js\\site.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{149FD6E1-6DB4-47B7-A1E4-82604A43EA7A}|TestASP\\TestASP.csproj|c:\\git\\code-dumb\\c#\\testasp\\testasp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{149FD6E1-6DB4-47B7-A1E4-82604A43EA7A}|TestASP\\TestASP.csproj|solutionrelative:testasp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{149FD6E1-6DB4-47B7-A1E4-82604A43EA7A}|TestASP\\TestASP.csproj|c:\\git\\code-dumb\\c#\\testasp\\testasp\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{149FD6E1-6DB4-47B7-A1E4-82604A43EA7A}|TestASP\\TestASP.csproj|solutionrelative:testasp\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{149FD6E1-6DB4-47B7-A1E4-82604A43EA7A}|TestASP\\TestASP.csproj|c:\\git\\code-dumb\\c#\\testasp\\testasp\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{149FD6E1-6DB4-47B7-A1E4-82604A43EA7A}|TestASP\\TestASP.csproj|solutionrelative:testasp\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{149FD6E1-6DB4-47B7-A1E4-82604A43EA7A}|TestASP\\TestASP.csproj|c:\\git\\code-dumb\\c#\\testasp\\testasp\\views\\home\\privacy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{149FD6E1-6DB4-47B7-A1E4-82604A43EA7A}|TestASP\\TestASP.csproj|solutionrelative:testasp\\views\\home\\privacy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{149FD6E1-6DB4-47B7-A1E4-82604A43EA7A}|TestASP\\TestASP.csproj|c:\\git\\code-dumb\\c#\\testasp\\testasp\\views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{149FD6E1-6DB4-47B7-A1E4-82604A43EA7A}|TestASP\\TestASP.csproj|solutionrelative:testasp\\views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{149FD6E1-6DB4-47B7-A1E4-82604A43EA7A}|TestASP\\TestASP.csproj|c:\\git\\code-dumb\\c#\\testasp\\testasp\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{149FD6E1-6DB4-47B7-A1E4-82604A43EA7A}|TestASP\\TestASP.csproj|solutionrelative:testasp\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{149FD6E1-6DB4-47B7-A1E4-82604A43EA7A}|TestASP\\TestASP.csproj|c:\\git\\code-dumb\\c#\\testasp\\testasp\\models\\errorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{149FD6E1-6DB4-47B7-A1E4-82604A43EA7A}|TestASP\\TestASP.csproj|solutionrelative:testasp\\models\\errorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Git\\code-dumb\\C#\\TestASP\\Empty\\Program.cs",
+              "RelativeDocumentMoniker": "Empty\\Program.cs",
+              "ToolTip": "C:\\Git\\code-dumb\\C#\\TestASP\\Empty\\Program.cs",
+              "RelativeToolTip": "Empty\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-26T20:58:57.789Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\Git\\code-dumb\\C#\\TestASP\\TestASP\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "TestASP\\Properties\\launchSettings.json",
+              "ToolTip": "C:\\Git\\code-dumb\\C#\\TestASP\\TestASP\\Properties\\launchSettings.json",
+              "RelativeToolTip": "TestASP\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-01-26T20:56:48.247Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "site.css",
+              "DocumentMoniker": "C:\\Git\\code-dumb\\C#\\TestASP\\TestASP\\wwwroot\\css\\site.css",
+              "RelativeDocumentMoniker": "TestASP\\wwwroot\\css\\site.css",
+              "ToolTip": "C:\\Git\\code-dumb\\C#\\TestASP\\TestASP\\wwwroot\\css\\site.css",
+              "RelativeToolTip": "TestASP\\wwwroot\\css\\site.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-01-26T20:56:30.23Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "site.js",
+              "DocumentMoniker": "C:\\Git\\code-dumb\\C#\\TestASP\\TestASP\\wwwroot\\js\\site.js",
+              "RelativeDocumentMoniker": "TestASP\\wwwroot\\js\\site.js",
+              "ToolTip": "C:\\Git\\code-dumb\\C#\\TestASP\\TestASP\\wwwroot\\js\\site.js",
+              "RelativeToolTip": "TestASP\\wwwroot\\js\\site.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-01-26T20:56:26.42Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Git\\code-dumb\\C#\\TestASP\\TestASP\\appsettings.json",
+              "RelativeDocumentMoniker": "TestASP\\appsettings.json",
+              "ToolTip": "C:\\Git\\code-dumb\\C#\\TestASP\\TestASP\\appsettings.json",
+              "RelativeToolTip": "TestASP\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-01-26T20:56:15.586Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "_ViewStart.cshtml",
+              "DocumentMoniker": "C:\\Git\\code-dumb\\C#\\TestASP\\TestASP\\Views\\_ViewStart.cshtml",
+              "RelativeDocumentMoniker": "TestASP\\Views\\_ViewStart.cshtml",
+              "ToolTip": "C:\\Git\\code-dumb\\C#\\TestASP\\TestASP\\Views\\_ViewStart.cshtml",
+              "RelativeToolTip": "TestASP\\Views\\_ViewStart.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-01-26T20:55:11.532Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Privacy.cshtml",
+              "DocumentMoniker": "C:\\Git\\code-dumb\\C#\\TestASP\\TestASP\\Views\\Home\\Privacy.cshtml",
+              "RelativeDocumentMoniker": "TestASP\\Views\\Home\\Privacy.cshtml",
+              "ToolTip": "C:\\Git\\code-dumb\\C#\\TestASP\\TestASP\\Views\\Home\\Privacy.cshtml",
+              "RelativeToolTip": "TestASP\\Views\\Home\\Privacy.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-01-26T20:55:54.985Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Git\\code-dumb\\C#\\TestASP\\TestASP\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "TestASP\\Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Git\\code-dumb\\C#\\TestASP\\TestASP\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "TestASP\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-01-26T20:55:25.69Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "ErrorViewModel.cs",
+              "DocumentMoniker": "C:\\Git\\code-dumb\\C#\\TestASP\\TestASP\\Models\\ErrorViewModel.cs",
+              "RelativeDocumentMoniker": "TestASP\\Models\\ErrorViewModel.cs",
+              "ToolTip": "C:\\Git\\code-dumb\\C#\\TestASP\\TestASP\\Models\\ErrorViewModel.cs",
+              "RelativeToolTip": "TestASP\\Models\\ErrorViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-26T20:55:20.861Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "_ViewImports.cshtml",
+              "DocumentMoniker": "C:\\Git\\code-dumb\\C#\\TestASP\\TestASP\\Views\\_ViewImports.cshtml",
+              "RelativeDocumentMoniker": "TestASP\\Views\\_ViewImports.cshtml",
+              "ToolTip": "C:\\Git\\code-dumb\\C#\\TestASP\\TestASP\\Views\\_ViewImports.cshtml",
+              "RelativeToolTip": "TestASP\\Views\\_ViewImports.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-01-26T20:55:09.873Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Git\\code-dumb\\C#\\TestASP\\TestASP\\Program.cs",
+              "RelativeDocumentMoniker": "TestASP\\Program.cs",
+              "ToolTip": "C:\\Git\\code-dumb\\C#\\TestASP\\TestASP\\Program.cs",
+              "RelativeToolTip": "TestASP\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-26T20:50:55.613Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
