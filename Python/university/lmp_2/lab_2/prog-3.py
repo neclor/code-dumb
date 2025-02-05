@@ -5,9 +5,6 @@ import pygame
 
 K: float = 8.9876 * (10 ** 9)
 
-A = 2
-B = 5
-C = 20
 
 BLUE: pygame.Color = pygame.Color("#7fbfff")
 BLUE_2: pygame.Color = pygame.Color("#0000ff")
@@ -117,50 +114,38 @@ def calculate_color(v) -> tuple:
     else: return (255, 0 ,255)
 
 
-# draw_vector
+def draw_vector(p, v, color):
+    def deplacer_pol(point, distance, orientation):
+        x, y = point
+        x_2 = x + distance * math.cos(orientation)
+        y_2 = y + distance * math.sin(orientation)
+        return (x_2, y_2)
 
-def draw_vector(p: tuple[float, float], v: tuple[float, float], color) -> None:
-    dessiner_vecteur(surface, color, p, v)
+    A = 2
+    B = 5
+    C = 20
 
-
-def deplacer_pol(point, distance, orientation):
-    x, y = point
-    x_2 = x + distance * math.cos(orientation)
-    y_2 = y + distance * math.sin(orientation)
-
-    return (x_2, y_2)
-
-
-def dessiner_vecteur(fenetre, couleur, p, v):
     x = 0
     y = 1
     dist_v = math.sqrt(v[x] ** 2 + v[y] ** 2)
     a = math.atan2(v[y], v[x])
     if dist_v >= C:
         p_4 = (p[x] + v[x], p[y] + v[y])
-
         p_1 = deplacer_pol(p, A, a - math.pi / 2)
         p_7 = deplacer_pol(p, A, a + math.pi / 2)
-
         p_c = deplacer_pol(p, dist_v - C, a)
-
         p_2 = deplacer_pol(p_c, A, a - math.pi / 2)
         p_6 = deplacer_pol(p_c, A, a + math.pi / 2)
-
         p_3 = deplacer_pol(p_2, B, a - math.pi / 2)
         p_5 = deplacer_pol(p_6, B, a + math.pi / 2)
-
         polygon = [p_1, p_2, p_3, p_4, p_5, p_6, p_7]
-
     else:
         p_3 = (p[x] + v[x], p[y] + v[y])
         p_1 = deplacer_pol(p_3, C, a + math.pi)
         p_2 = deplacer_pol(p_1, A + B, a - math.pi / 2)
         p_4 = deplacer_pol(p_1, A + B, a + math.pi / 2)
         polygon = [p_1, p_2, p_3, p_4]
-
-    pygame.draw.polygon(fenetre, couleur, polygon)
-
+    pygame.draw.polygon(surface, color, polygon)
 
 
 if __name__ == "__main__":
