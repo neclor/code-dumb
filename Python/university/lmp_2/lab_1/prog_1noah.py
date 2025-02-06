@@ -8,7 +8,7 @@ BLEUCLAIR = (127, 191, 255)
 ROUGE = (255, 0, 0)
 BLEU = (0, 0, 255)
 NOIR = (0, 0, 0)
-K = 8.9876
+K = 8.9876 * 10 ** 9
 RAYON = 10
 A = 2
 B = 5
@@ -71,8 +71,8 @@ def dessiner_champ():
 
 
 def calculer_champ(x, y):
-    champ_elec_y = 0
     champ_elec_x = 0
+    champ_elec_y = 0
     for objet in liste_objet:
         dx = x - objet[0]
         dy = y - objet[1]
@@ -119,20 +119,26 @@ couleur = BLEU
 
 # Dessin
 
-fenetre.fill(couleur_fond)
+
+def main():
 
 
-ajouter_objet(800, 200, 10 ** -6)
-ajouter_objet(800, 700, -10 ** -6)
+    ajouter_objet(800, 200, 10 ** -6)
+    ajouter_objet(800, 700, -10 ** -6)
 
-while True:
-    for evenement in pygame.event.get():
-        if evenement.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
+    while True:
+        for evenement in pygame.event.get():
+            if evenement.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
 
-    dessiner_objet()
-    dessiner_champ()
+        fenetre.fill(couleur_fond)
 
-    pygame.display.flip()
-    horloge.tick(images_par_seconde)
+        dessiner_objet()
+        dessiner_champ()
+
+        pygame.display.flip()
+        horloge.tick(images_par_seconde)
+
+
+main()

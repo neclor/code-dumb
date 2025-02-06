@@ -3,11 +3,7 @@ import math
 import pygame
 
 
-K: float = 8.9876 * (10 ** 9)
-
-
 BLUE: pygame.Color = pygame.Color("#7fbfff")
-BLUE_2: pygame.Color = pygame.Color("#0000ff")
 RED: pygame.Color = pygame.Color("#ff0000")
 BLACK: pygame.Color = pygame.Color("#000000")
 
@@ -16,11 +12,24 @@ RESOLUTION: tuple[int, int] = (1600, 900)
 FPS: int = 60
 
 
-clock: pygame.time.Clock = pygame.time.Clock()
+K: float = 8.9876 * (10 ** 9)
+ABS_OBJECT_CHARGE: float = 10 ** -6
+ABS_MOBILE_CHARGE: float = ABS_OBJECT_CHARGE
+
+
 surface: pygame.Surface
+clock: pygame.time.Clock
+previous_time: int = 0
 
 
-objects: list[tuple[int, int, float]] = []
+objects: list[dict] = []
+mobile: dict = {
+    "exists": False,
+    "position": pygame.Vector2(100, 100),
+    "velocity": pygame.Vector2(),
+    "charge": ABS_MOBILE_CHARGE,
+    "mass": 10 ** -10
+}
 
 
 def main() -> None:
@@ -33,9 +42,6 @@ def init() -> None:
     pygame.init()
     clock = pygame.time.Clock()
     surface = pygame.display.set_mode(RESOLUTION)
-
-    add_object(800, 200, 10 ** -6)
-    add_object(800, 700, -10 ** -6)
 
 
 def run() -> None:
@@ -51,17 +57,38 @@ def check_input() -> None:
             pygame.quit()
             sys.exit()
         elif event.type == pygame.MOUSEBUTTONDOWN:
-            x, y = event.pos
             if event.button == 1:
-                add_object(x, y, 10 ** -6)
+                add_object(pygame.Vector2(event.pos), ABS_OBJECT_CHARGE)
             elif event.button == 3:
-                add_object(x, y, -10 ** -6)
+                add_object(pygame.Vector2(event.pos), -ABS_OBJECT_CHARGE)
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_p:
+                create_mobile(pygame.Vector2(pygame.mouse.get_pos()), ABS_MOBILE_CHARGE)
+            elif event.key == pygame.K_n:
+                create_mobile(pygame.Vector2(pygame.mouse.get_pos()), -ABS_MOBILE_CHARGE)
+
+
+def add_object(position: pygame.Vector2, charge: float) -> None:
+    objects.append({
+        "position": position,
+        "charge": charge
+    })
+
+
+def create_mobile(position: pygame.Vector2, charge: float) -> None:
+    mobile["exists"] = True
+    mobile["position"] = position
+    mobile["velocity"] = pygame.Vector2()
+    mobile["charge"] = charge
+
+
+
+def update_mobile() -> None:
+    pass
 
 
 
 
-def add_object(x: int, y: int, q: float) -> None:
-    objects.append((x, y, q))
 
 
 def update() -> None:
@@ -71,81 +98,36 @@ def update() -> None:
 
 
 def draw() -> None:
+    def draw_objects() -> None:
+        for obj in objects:
+            pygame.draw.circle(surface, RED if obj["charge"] > 0 else BLACK, obj["position"], 10)
+
+    def draw_mobile() -> None:
+        if not mobile["exists"]: return
+        pygame.draw.circle(surface, RED if mobile["charge"] > 0 else BLACK, mobile["position"], 10, 4)
+
     surface.fill(BLUE)
-    draw_field()
-    for o in objects:
-        pygame.draw.circle(surface, RED if o[2] > 0 else BLACK, (o[0], o[1]), 10)
+    draw_objects()
+    draw_mobile()
 
 
-def draw_field() -> None:
-    for x in range(-50, RESOLUTION[0] + 50, 50):
-        for y in range(-50, RESOLUTION[1] + 50, 50):
-            draw_field_vector(x, y)
+def calculate_coulomb_force(position: pygame.Vector2) -> pygame.Vector2:
+    return mobile["charge"] * calculate_field_strength(position)
 
 
+def calculate_field_strength(position: pygame.Vector2) -> pygame.Vector2:
+    field_strength_vector: pygame.Vector2 = pygame.Vector2()
+    for obj in objects:
+        delta_vector: pygame.Vector2 = position - obj["position"]
+        distance: float = delta_vector.length()
+        if distance <= 20: continue
+        normalized_delta_vector: pygame.Vector2 = delta_vector.normalize()
+        field_strength: float = K * obj["charge"] / (distance ** 2)
+        field_strength_vector += normalized_delta_vector * field_strength
 
-def draw_field_vector(x, y) -> None:
-    field_vector_x: float = 0
-    field_vector_y: float = 0
-    for o in objects:
-        dx: int = x - o[0]
-        dy: int = y - o[1]
-        dist: float = math.sqrt(dx ** 2 + dy ** 2)
-        if dist <= 20: return
-        n: float = K * o[2] / (dist ** 2)
-        field_vector_x += (dx / dist) * n
-        field_vector_y += (dy / dist) * n
-
-    force: float = math.sqrt(field_vector_x ** 2 + field_vector_y ** 2)
-    if force < 10 ** -10: return
-
-    fx: float = field_vector_x / force * 40
-    fy: float = field_vector_y / force * 40
-    v: float = math.sqrt(1000 * force)
-
-    draw_vector((x - fx / 2, y - fy / 2), (fx, fy), calculate_color(v))
+    return field_strength_vector
 
 
-def calculate_color(v) -> tuple:
-    if 0 <= v <= 8: return (255, 255 * v / 8, 0)
-    if 8 < v <= 16: return (255 - 255 * v / 16, 255, 255 * v / 16)
-    if 16 < v <= 24: return (0, 255 * v / 24, 255)
-    if 24 < v <= 32: return (255 * v / 32, 0, 255)
-    else: return (255, 0 ,255)
-
-
-def draw_vector(p, v, color):
-    def deplacer_pol(point, distance, orientation):
-        x, y = point
-        x_2 = x + distance * math.cos(orientation)
-        y_2 = y + distance * math.sin(orientation)
-        return (x_2, y_2)
-
-    A = 2
-    B = 5
-    C = 20
-
-    x = 0
-    y = 1
-    dist_v = math.sqrt(v[x] ** 2 + v[y] ** 2)
-    a = math.atan2(v[y], v[x])
-    if dist_v >= C:
-        p_4 = (p[x] + v[x], p[y] + v[y])
-        p_1 = deplacer_pol(p, A, a - math.pi / 2)
-        p_7 = deplacer_pol(p, A, a + math.pi / 2)
-        p_c = deplacer_pol(p, dist_v - C, a)
-        p_2 = deplacer_pol(p_c, A, a - math.pi / 2)
-        p_6 = deplacer_pol(p_c, A, a + math.pi / 2)
-        p_3 = deplacer_pol(p_2, B, a - math.pi / 2)
-        p_5 = deplacer_pol(p_6, B, a + math.pi / 2)
-        polygon = [p_1, p_2, p_3, p_4, p_5, p_6, p_7]
-    else:
-        p_3 = (p[x] + v[x], p[y] + v[y])
-        p_1 = deplacer_pol(p_3, C, a + math.pi)
-        p_2 = deplacer_pol(p_1, A + B, a - math.pi / 2)
-        p_4 = deplacer_pol(p_1, A + B, a + math.pi / 2)
-        polygon = [p_1, p_2, p_3, p_4]
-    pygame.draw.polygon(surface, color, polygon)
 
 
 if __name__ == "__main__":
