@@ -3,6 +3,11 @@ import math
 import pygame
 
 
+K: float = 8.9876 * (10 ** 9)
+ABS_OBJECT_CHARGE: float = 10 ** -6
+ABS_MOBILE_CHARGE: float = ABS_OBJECT_CHARGE
+
+
 BLUE: pygame.Color = pygame.Color("#7fbfff")
 RED: pygame.Color = pygame.Color("#ff0000")
 BLACK: pygame.Color = pygame.Color("#000000")
@@ -12,24 +17,40 @@ RESOLUTION: tuple[int, int] = (1600, 900)
 FPS: int = 60
 
 
-K: float = 8.9876 * (10 ** 9)
-ABS_OBJECT_CHARGE: float = 10 ** -6
-ABS_MOBILE_CHARGE: float = ABS_OBJECT_CHARGE
+class Obj:
+    def __init__(self: "Obj", new_position: pygame.Vector2, new_charge: float) -> None:
+        self.position: pygame.Vector2 = new_position
+        self.charge: float = new_charge
+
+
+    def draw(self: "Obj") -> None:
+        pygame.draw.circle(surface, RED if self.charge > 0 else BLACK, self.position, 10)
+
+
+class Mobile(Obj):
+    def __init__(self: "Mobile", new_position: pygame.Vector2, new_charge: float) -> None:
+        super().__init__(new_position, new_charge)
+        self.velocity: pygame.Vector2 = pygame.Vector2()
+        self.mass: float = 10 ** -10
+
+
+    def draw(self: "Mobile") -> None:
+        pygame.draw.circle(surface, RED if self.charge > 0 else BLACK, self.position, 10, 4)
+
+
+    def update(delta: float) -> None:
+
+        clock.get_time() / 1000
+
+        pass
 
 
 surface: pygame.Surface
 clock: pygame.time.Clock
-previous_time: int = 0
 
 
-objects: list[dict] = []
-mobile: dict = {
-    "exists": False,
-    "position": pygame.Vector2(100, 100),
-    "velocity": pygame.Vector2(),
-    "charge": ABS_MOBILE_CHARGE,
-    "mass": 10 ** -10
-}
+objects: list[Obj] = []
+mobile: Mobile | None = None
 
 
 def main() -> None:
@@ -48,6 +69,7 @@ def run() -> None:
     while True:
         check_input()
         update()
+        if mobile is not None: mobile.update()
         draw()
 
 
@@ -58,37 +80,15 @@ def check_input() -> None:
             sys.exit()
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
-                add_object(pygame.Vector2(event.pos), ABS_OBJECT_CHARGE)
+                objects.append(Obj(pygame.Vector2(event.pos)), ABS_OBJECT_CHARGE)
             elif event.button == 3:
-                add_object(pygame.Vector2(event.pos), -ABS_OBJECT_CHARGE)
+                objects.append(Obj(pygame.Vector2(event.pos)), -ABS_OBJECT_CHARGE)
         elif event.type == pygame.KEYDOWN:
+            global mobile
             if event.key == pygame.K_p:
-                create_mobile(pygame.Vector2(pygame.mouse.get_pos()), ABS_MOBILE_CHARGE)
+                mobile = Mobile(pygame.mouse.get_pos(), ABS_MOBILE_CHARGE)
             elif event.key == pygame.K_n:
-                create_mobile(pygame.Vector2(pygame.mouse.get_pos()), -ABS_MOBILE_CHARGE)
-
-
-def add_object(position: pygame.Vector2, charge: float) -> None:
-    objects.append({
-        "position": position,
-        "charge": charge
-    })
-
-
-def create_mobile(position: pygame.Vector2, charge: float) -> None:
-    mobile["exists"] = True
-    mobile["position"] = position
-    mobile["velocity"] = pygame.Vector2()
-    mobile["charge"] = charge
-
-
-
-def update_mobile() -> None:
-    pass
-
-
-
-
+                mobile = Mobile(pygame.mouse.get_pos(), -ABS_MOBILE_CHARGE)
 
 
 def update() -> None:
@@ -97,18 +97,14 @@ def update() -> None:
     clock.tick(FPS)
 
 
+def update_mobile() -> None:
+    pass
+
+
 def draw() -> None:
-    def draw_objects() -> None:
-        for obj in objects:
-            pygame.draw.circle(surface, RED if obj["charge"] > 0 else BLACK, obj["position"], 10)
-
-    def draw_mobile() -> None:
-        if not mobile["exists"]: return
-        pygame.draw.circle(surface, RED if mobile["charge"] > 0 else BLACK, mobile["position"], 10, 4)
-
     surface.fill(BLUE)
-    draw_objects()
-    draw_mobile()
+    for obj in objects: obj.draw()
+    if mobile is not None: mobile.draw()
 
 
 def calculate_coulomb_force(position: pygame.Vector2) -> pygame.Vector2:
