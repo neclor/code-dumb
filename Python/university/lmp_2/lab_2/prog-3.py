@@ -4,7 +4,7 @@ import pygame
 
 
 K: float = 8.9876 * (10 ** 9)
-ABS_OBJECT_CHARGE: float = 10 ** -6
+ABS_OBJECT_CHARGE: float = 10 ** -7
 ABS_MOBILE_CHARGE: float = ABS_OBJECT_CHARGE
 
 
@@ -13,7 +13,7 @@ RED: pygame.Color = pygame.Color("#ff0000")
 BLACK: pygame.Color = pygame.Color("#000000")
 
 
-RESOLUTION: tuple[int, int] =  (800, 600) # (1600, 900)
+RESOLUTION: tuple[int, int] = (1600, 900)  # (800, 600)
 FPS: int = 60
 
 
@@ -41,8 +41,9 @@ class Mobile(Obj):
     def update(self: "Mobile", delta: float) -> None:
         coulomb_force: pygame.Vector2 = self.charge * calculate_field_strength(self.position)
         acceleration: pygame.Vector2 = coulomb_force / self.mass
+
+        self.position += self.velocity * delta + acceleration * (delta ** 2) / 2
         self.velocity += acceleration * delta
-        self.position += self.velocity * delta
 
 
 surface: pygame.Surface
@@ -123,7 +124,7 @@ def calculate_field_strength(position: pygame.Vector2) -> pygame.Vector2:
     for obj in objects:
         delta_vector: pygame.Vector2 = position - obj.position
         distance: float = delta_vector.length()
-        if distance == 0: continue
+        if distance < 10: continue
         normalized_delta_vector: pygame.Vector2 = delta_vector.normalize()
         field_strength: float = K * obj.charge / (distance ** 2)
         field_strength_vector += normalized_delta_vector * field_strength
@@ -136,7 +137,7 @@ def calculate_potential_energy(position: pygame.Vector2, charge: float) -> float
     for obj in objects:
         delta_vector: pygame.Vector2 = position - obj.position
         distance: float = delta_vector.length()
-        if distance == 0: continue
+        if distance < 10: continue
         potential_energy += obj.charge / distance
 
     return K * charge * potential_energy
@@ -152,5 +153,4 @@ def calculate_electric_potential(position: pygame.Vector2) -> float:
     return electric_potential
 
 
-if __name__ == "__main__":
-    main()
+if __name__ == "__main__": main()

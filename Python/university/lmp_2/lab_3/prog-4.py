@@ -6,9 +6,9 @@
 #
 # ------------------------------------------------------------------------
 
-import sys
 import math
 import pygame
+import sys
 import numpy as np
 
 ### Constante(s)
@@ -19,6 +19,7 @@ ROUGE = (255, 0, 0)
 
 
 ### Variables Globales
+valeur_memorisee: int = 9
 
 
 def dessiner_arduino(sortie_arduino, sortie_CD4511, sortie_bouton):
@@ -76,18 +77,40 @@ def dessiner_afficheur(sortie_CD4511):
         i = i + 1
     return
 
+
 def composant_CD4511(entree):
-    return np.array([0, 0, 0, 0, 0, 0, 0])
+    tdv = np.array([
+        [1, 1, 1, 1, 1, 1, 0],
+        [0, 1, 1, 0, 0, 0, 0],
+        [1, 1, 0, 1, 1, 0, 1],
+        [1, 1, 1, 1, 0, 0, 1],
+        [0, 1, 1, 0, 0, 1, 1],
+        [1, 0, 1, 1, 0, 1, 1],
+        [1, 0, 1, 1, 1, 1, 1],
+        [1, 1, 1, 0, 0, 0, 0],
+        [1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 0, 1, 1],
+    ])
+    index = entree[0] * 8 + entree[1] * 4 + entree[2] * 2 + entree[3]
+    return tdv[index]
+
 
 def sortie_memorisee():
-    return np.array([0, 0, 0, 0])
+    value = valeur_memorisee
+    result = [0, 0, 0, 0]
+    for i in range(4):
+        result[3 - i] = value % 2
+        value = value // 2
+    return np.array(result)
+
 
 def gerer_click():
     return 0
 
 
 def connexion_bouton(sortie_bouton):
-    return
+    pygame.draw.line(fenetre, ROUGE if sortie_bouton == 1 else NOIR, pin_arduino, pin_bouton, 5)
+
 
 ### Paramètre(s)
 
@@ -138,7 +161,9 @@ while True:
         if evenement.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
+
     sortie_bouton = 0
+    if pygame.mouse.get_pressed()[0] == 1 and pygame.Vector2(pygame.mouse.get_pos()).distance_to(pos_centre_bouton) <= rayon_bouton: sortie_bouton = 1
     fenetre.fill(couleur_fond)
 
     sortie_CD4511 = composant_CD4511(sortie_memorisee())

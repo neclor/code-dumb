@@ -4,7 +4,7 @@ import pygame
 
 
 K: float = 8.9876 * (10 ** 9)
-
+ABS_OBJECT_CHARGE: float = 10 ** -6
 
 BLUE: pygame.Color = pygame.Color("#7fbfff")
 BLUE_2: pygame.Color = pygame.Color("#0000ff")
@@ -34,8 +34,8 @@ def init() -> None:
     clock = pygame.time.Clock()
     surface = pygame.display.set_mode(RESOLUTION)
 
-    add_object(800, 200, 10 ** -6)
-    add_object(800, 700, -10 ** -6)
+    add_object(800, 200, ABS_OBJECT_CHARGE)
+    add_object(800, 700, -ABS_OBJECT_CHARGE)
 
 
 def run() -> None:
@@ -53,9 +53,9 @@ def check_input() -> None:
         elif event.type == pygame.MOUSEBUTTONDOWN:
             x, y = event.pos
             if event.button == 1:
-                add_object(x, y, 10 ** -6)
+                add_object(x, y, ABS_OBJECT_CHARGE)
             elif event.button == 3:
-                add_object(x, y, -10 ** -6)
+                add_object(x, y, -ABS_OBJECT_CHARGE)
 
 
 
@@ -148,5 +148,4 @@ def draw_vector(p, v, color):
     pygame.draw.polygon(surface, color, polygon)
 
 
-if __name__ == "__main__":
-    main()
+if __name__ == "__main__": main()
