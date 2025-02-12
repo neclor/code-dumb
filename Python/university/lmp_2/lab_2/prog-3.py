@@ -84,6 +84,8 @@ def check_input() -> None:
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
                 objects.append(Obj(pygame.Vector2(event.pos), ABS_OBJECT_CHARGE))
+            elif event.button == 2:
+                if len(objects) != 0: objects.pop(0)
             elif event.button == 3:
                 objects.append(Obj(pygame.Vector2(event.pos), -ABS_OBJECT_CHARGE))
         elif event.type == pygame.KEYDOWN:
