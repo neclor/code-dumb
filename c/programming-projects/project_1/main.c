@@ -4,7 +4,7 @@
  * Ce fichier contient la fonction main() du programme de manipulation
  * de fichiers pnm.
  *
- * @author: Nom Prenom Matricule
+ * @author: ME aaaaa Nom Prenom Matricule
  * @date: 
  * @projet: INFO0030 Projet 1
  */
