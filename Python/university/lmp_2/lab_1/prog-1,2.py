@@ -108,9 +108,9 @@ def draw_field_vector(x, y) -> None:
 
 def calculate_color(v) -> tuple:
     if 0 <= v <= 8: return (255, 255 * v / 8, 0)
-    if 8 < v <= 16: return (255 - 255 * v / 16, 255, 255 * v / 16)
-    if 16 < v <= 24: return (0, 255 * v / 24, 255)
-    if 24 < v <= 32: return (255 * v / 32, 0, 255)
+    if 8 < v <= 16: return (255 - 255 * (v - 8) / 8, 255, 255 * v / 16)
+    if 16 < v <= 24: return (0, 255 - 255 * (v - 16) / 8, 255)
+    if 24 < v <= 32: return (255 * (v - 24) / 8, 0, 255)
     else: return (255, 0 ,255)
 
 

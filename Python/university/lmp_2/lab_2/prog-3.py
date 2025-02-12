@@ -109,14 +109,14 @@ def draw() -> None:
 
 def draw_table() -> None:
     electric_potential: float = calculate_electric_potential(pygame.Vector2(pygame.mouse.get_pos()))
-    surface.blit(font.render(f"Electric potential: {electric_potential:.2f} V", True, BLACK), (0, 120))
+    surface.blit(font.render(f"Electric potential: {electric_potential:.2f} V", True, BLACK), (200, 160))
     if mobile is None: return
     kinetic_energy: float = mobile.mass * mobile.velocity.length_squared() / 2 * 10 ** 6
-    surface.blit(font.render(f"Kinetic energy: {kinetic_energy:.2f} μJ", True, BLACK), (0, 0))
+    surface.blit(font.render(f"Kinetic energy: {kinetic_energy:.2f} μJ", True, BLACK), (200, 40))
     potential_energy: float = calculate_potential_energy(mobile.position, mobile.charge) * 10 ** 6
-    surface.blit(font.render(f"Potential energy: {potential_energy:.2f} μJ", True, BLACK), (0, 40))
+    surface.blit(font.render(f"Potential energy: {potential_energy:.2f} μJ", True, BLACK), (200, 80))
     total_energy: float = kinetic_energy + potential_energy
-    surface.blit(font.render(f"Total energy: {total_energy:.2f} μJ", True, BLACK), (0, 80))
+    surface.blit(font.render(f"Total energy: {total_energy:.2f} μJ", True, BLACK), (200, 120))
 
 
 def calculate_field_strength(position: pygame.Vector2) -> pygame.Vector2:
