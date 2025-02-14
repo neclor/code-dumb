@@ -10,9 +10,12 @@
 */
 
 
-#ifndef __PNM__
-#define __PNM__
+#ifndef _PNM_H
+#define _PNM_H
 
+ enum FormatPNM_t;
+
+typedef enum FormatPNM_t FormatPNM;
 
 typedef struct PNM_t PNM;
 
@@ -56,4 +59,4 @@ int load_pnm(PNM **image, const char* filename);
 int write_pnm(PNM *image, const char* filename);
 
 
-#endif // __PNM__
+#endif // _PNM_H

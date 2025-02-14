@@ -16,15 +16,14 @@
 
 #include "pnm.h"
 
-
-typedef enum {
-   PBM,
-   PGM,
-   PPM,
-} PNMFormat;
+enum FormatPNM_t {
+   FORMAT_PBM,
+   FORMAT_PGM,
+   FORMAT_PPM,
+};
 
 struct PNM_t {
-   PNMFormat format;
+   FormatPNM format;
    unsigned int width;
    unsigned int height;
    unsigned int max_value;
