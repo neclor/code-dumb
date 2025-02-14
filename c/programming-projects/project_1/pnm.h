@@ -4,22 +4,16 @@
  * Ce fichier contient les déclarations de types et les prototypes
  * des fonctions pour la manipulation d'images PNM.
  * 
- * @author: Nom Prenom Matricule
- * @date: 
+ * @author: Aleksandr Pavlov s2400691
+ * @date: 12.02.2025
  * @projet: INFO0030 Projet 1
- */
+*/
 
-/*
- * Include guard (pour éviter les problèmes d'inclusions multiplies
- * Bonne pratique: toujours encadrer un header avec un include guard
- */
+
 #ifndef __PNM__
 #define __PNM__
 
-/**
- * Déclaration du type opaque PNM
- *
- */
+
 typedef struct PNM_t PNM;
 
 
@@ -40,9 +34,8 @@ typedef struct PNM_t PNM;
  *    -1 Erreur à l'allocation de mémoire
  *    -2 Nom du fichier malformé
  *    -3 Contenu du fichier malformé
- *
- */
-int load_pnm(PNM **image, char* filename);
+*/
+int load_pnm(PNM **image, const char* filename);
 
 /**
  * write_pnm
@@ -59,9 +52,8 @@ int load_pnm(PNM **image, char* filename);
  *     0 Succès
  *    -1 Nom du fichier malformé
  *    -2 Erreur lors de la manipulation du fichier
- *
- */
-int write_pnm(PNM *image, char* filename);
+*/
+int write_pnm(PNM *image, const char* filename);
+
 
 #endif // __PNM__
-
