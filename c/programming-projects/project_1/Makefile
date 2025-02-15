@@ -1,28 +1,24 @@
-### 
-## Makefile skeleton
-## INFO0030: Projet 1
-## 
-### 
+# Makefile
+# By: Pavlov Aleksandr s2400691
+# INFO0030: Projet 1
 
-## Variables
+TARGET = pnm
 
-# Tools & flags
-CC=gcc
-CFLAGS=--std=c99 --pedantic -Wall -W -Wmissing-prototypes
-LD=gcc
-LDFLAGS=
+CC = gcc
+CFLAGS = --std=c99 --pedantic -Wall -W -Wmissing-prototypes
+LD = gcc
+LDFLAGS =
 
-# Files
-EXEC=pnm
-MODULES=main.c pnm.c
-OBJECTS=main.o pnm.o
+SRC_DIR = src
+OBJ_DIR = bin
 
-## Rules
+SRCS = $(shell find $(SRC_DIR) -type f -name "*.c")
+OBJS = main.o pnm.o
 
-all: $(EXEC)
+all: $(TARGET)
 
-pnm: $(OBJECTS)
-	$(LD) -o $(EXEC) $(OBJECTS) $(LDFLAGS)
+$(TARGET): $(OBJECTS)
+	$(LD) -o $@ $(OBJECTS) $(LDFLAGS)
 
 main.o: main.c
 	$(CC) -c main.c -o main.o $(CFLAGS)
@@ -33,3 +29,12 @@ pnm.o: pnm.c
 clean:
 	rm -f *.o $(EXEC) *~
 
+
+clean:
+	rm -rf *.o $(OBJ_DIR) $(TARGET) *~
+
+git:
+	git pull
+	git add .
+	git commit -m "Makefile push `date +'%Y-%m-%d %H:%M:%S'`"
+	git push

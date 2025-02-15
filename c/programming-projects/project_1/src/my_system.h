@@ -14,12 +14,10 @@
  * @projet: INFO0030 Projet 1
 */
 
-/* Include this file _after_ system headers if possible. */
+#ifndef _MY_SYSTEM_H
+#define _MY_SYSTEM_H 1
 
 #include <stdio.h>
-
-#ifndef _MY_SYSTEM_H
-#define _MY_SYSTEM_H
 
 #define CHAR_MIN 0
 
@@ -67,4 +65,4 @@ Mandatory arguments to long options are mandatory for short options too.\n\
 ", stdout);
 }
 
-#endif // _MY_SYSTEM_H
+#endif /* my_system.h  */

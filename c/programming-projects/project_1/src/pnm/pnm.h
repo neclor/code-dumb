@@ -1,26 +1,37 @@
 /**
  * pnm.h
  * 
- * Ce fichier contient les déclarations de types et les prototypes
- * des fonctions pour la manipulation d'images PNM.
- * 
- * @author: Aleksandr Pavlov s2400691
+ * @author: Pavlov Aleksandr s2400691
  * @date: 12.02.2025
  * @projet: INFO0030 Projet 1
 */
 
-
 #ifndef _PNM_H
-#define _PNM_H
+#define _PNM_H 1
 
+#define PNM_LOAD_SUCCESS 0
+#define PNM_LOAD_MEMORY_ERROR -1
+#define PNM_LOAD_INVALID_FILENAME -2
+#define PNM_LOAD_DECODE_ERROR -3
 
-typedef enum FormatPNM {
+#define PNM_WRITE_SUCCESS 0
+#define PNM_WRITE_INVALID_FILENAME -1
+#define PNM_FILE_MANIPULATION_ERROR -2
+
+typedef enum FormatPNM_t {
     FORMAT_PBM,
     FORMAT_PGM,
     FORMAT_PPM,
 } FormatPNM;
 
 typedef struct PNM_t PNM;
+
+
+
+
+FormatPNM str_to_format(const char *format_string);
+
+
 
 
 /**
@@ -61,5 +72,4 @@ int load_pnm(PNM **image, const char* filename);
 */
 int write_pnm(PNM *image, const char* filename);
 
-
-#endif // _PNM_H
+#endif /* pnm.h  */
