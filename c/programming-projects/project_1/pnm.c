@@ -9,18 +9,11 @@
  * @projet: INFO0030 Projet 1
 */
 
-
 #include <stdio.h>
 #include <stdlib.h>
-#include <assert.h>
+// #include <assert.h>
 
 #include "pnm.h"
-
-enum FormatPNM_t {
-   FORMAT_PBM,
-   FORMAT_PGM,
-   FORMAT_PPM,
-};
 
 struct PNM_t {
    FormatPNM format;
@@ -38,11 +31,16 @@ int load_pnm(PNM **image, const char* filename) {
       return -2;
    }
 
+
+
+
+
    
 
    fclose(file);
    return 0;
 }
+
 
 int write_pnm(PNM *image, const char* filename) {
 

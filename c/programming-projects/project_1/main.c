@@ -16,7 +16,6 @@
 #include <ctype.h>
 #include <getopt.h>
 
-// #include "my_system.h"
 #include "pnm.h"
 
 #define PROGRAM_NAME "./pnm"
@@ -55,8 +54,6 @@ Mandatory arguments to long options are mandatory for short options too.\n\
       --help        display this help and exit\n\
       --version     output version information and exit\n\
 ", stdout);
-      //fputs(HELP_OPTION_DESCRIPTION, stdout);
-      //fputs(VERSION_OPTION_DESCRIPTION, stdout);
    }
    exit(status);
 }
@@ -84,12 +81,10 @@ int main(int argc, char **argv) {
             output_file = optarg;
             break;
 
-         // case_GETOPT_HELP_CHAR;
          case GETOPT_HELP_CHAR:
             usage(EXIT_SUCCESS);
             break;
 
-         // case_GETOPT_VERSION_CHAR(PROGRAM_NAME, VERSION, AUTHORS);
          case GETOPT_VERSION_CHAR:
             fprintf(stdout, "%s %s\n\nWritten by %s.\n",
                PROGRAM_NAME, VERSION, AUTHORS);

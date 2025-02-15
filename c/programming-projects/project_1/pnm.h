@@ -13,9 +13,12 @@
 #ifndef _PNM_H
 #define _PNM_H
 
- enum FormatPNM_t;
 
-typedef enum FormatPNM_t FormatPNM;
+typedef enum FormatPNM {
+    FORMAT_PBM,
+    FORMAT_PGM,
+    FORMAT_PPM,
+} FormatPNM;
 
 typedef struct PNM_t PNM;
 
