@@ -1,6 +1,6 @@
 /**
  * pnm.c
- * 
+ *
  * @author: Pavlov Aleksandr s2400691
  * @date: 12.02.2025
  * @projet: INFO0030 Projet 1
@@ -10,7 +10,7 @@
 #include <stdio.h>
 #include <ctype.h>
 
-#include "my_string.h"
+#include "../my_string/my_string.h"
 #include "pnm.h"
 
 struct PNM_t {
@@ -46,13 +46,13 @@ int load_pnm(PNM **image, const char *filename) {
    if (file == NULL) return PNM_LOAD_INVALID_FILENAME;
 
    printf("%s opened\n", filename);
-   
+
 
    // if (allocate_pnm(image) == 1) return PNM_LOAD_MEMORY_ERROR;
 
 
 
-   
+
 
    fclose(file);
    return PNM_LOAD_SUCCESS;

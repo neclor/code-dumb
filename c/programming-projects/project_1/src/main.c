@@ -1,11 +1,11 @@
 /**
  * main.c
- * 
+ *
  * Ce fichier contient la fonction main() du programme de manipulation
  * de fichiers pnm.
  *
  * @author: Pavlov Aleksandr s2400691
- * @date: 
+ * @date:
  * @projet: INFO0030 Projet 1
 */
 
@@ -15,7 +15,7 @@
 #include <ctype.h>
 #include <getopt.h>
 
-#include "pnm.h"
+#include "pnm/pnm.h"
 
 #define PROGRAM_NAME "./pnm"
 #define VERSION "1.0"

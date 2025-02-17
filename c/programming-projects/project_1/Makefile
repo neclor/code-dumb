@@ -12,26 +12,25 @@ LDFLAGS =
 SRC_DIR = src
 OBJ_DIR = bin
 
-SRCS = $(shell find $(SRC_DIR) -type f -name "*.c")
-OBJS = main.o pnm.o
+OBJS = $(OBJ_DIR)/main.o $(OBJ_DIR)/pnm.o $(OBJ_DIR)/my_string.o
 
 all: $(TARGET)
 
-$(TARGET): $(OBJECTS)
-	$(LD) -o $@ $(OBJECTS) $(LDFLAGS)
+$(TARGET): $(OBJS)
+	$(LD) $^ -o $@ $(LDFLAGS)
 
-main.o: main.c
-	$(CC) -c main.c -o main.o $(CFLAGS)
+$(OBJ_DIR)/main.o: $(SRC_DIR)/main.c
+	mkdir -p $(OBJ_DIR)
+	$(CC) -c $(SRC_DIR)/main.c -o $@ $(CFLAGS)
 
-pnm.o: pnm.c
-	$(CC) -c pnm.c -o pnm.o $(CFLAGS)
+$(OBJ_DIR)/pnm.o: $(SRC_DIR)/pnm/pnm.c $(SRC_DIR)/pnm/pnm.h
+	$(CC) -c $(SRC_DIR)/pnm/pnm.c -o $@ $(CFLAGS)
+
+$(OBJ_DIR)/my_string.o: $(SRC_DIR)/my_string/my_string.c $(SRC_DIR)/my_string/my_string.h
+	$(CC) -c $(SRC_DIR)/my_string/my_string.c -o $@ $(CFLAGS)
 
 clean:
-	rm -f *.o $(EXEC) *~
-
-
-clean:
-	rm -rf *.o $(OBJ_DIR) $(TARGET) *~
+	rm -f $(OBJ_DIR)/*.o $(TARGET)
 
 git:
 	git pull
