@@ -1,35 +1,36 @@
-### 
-## Makefile skeleton
-## INFO0030: Projet 1
-## 
-### 
+# Makefile
+# By: Pavlov Aleksandr s2400691
+# INFO0030: Projet 1
 
-## Variables
+TARGET = pnm
 
-# Tools & flags
-CC=gcc
-CFLAGS=--std=c99 --pedantic -Wall -W -Wmissing-prototypes
-LD=gcc
-LDFLAGS=
+CC = gcc
+CFLAGS = --std=c99 --pedantic -Wall -W -Wmissing-prototypes
+LD = gcc
+LDFLAGS =
 
-# Files
-EXEC=pnm
-MODULES=main.c pnm.c
-OBJECTS=main.o pnm.o
+SRC_DIR = src
+OBJ_DIR = bin
 
-## Rules
+OBJS = $(OBJ_DIR)/main.o $(OBJ_DIR)/pnm.o
 
-all: $(EXEC)
+all: $(TARGET)
 
-pnm: $(OBJECTS)
-	$(LD) -o $(EXEC) $(OBJECTS) $(LDFLAGS)
+$(TARGET): $(OBJS)
+	$(LD) $^ -o $@ $(LDFLAGS)
 
-main.o: main.c
-	$(CC) -c main.c -o main.o $(CFLAGS)
+$(OBJ_DIR)/main.o: $(SRC_DIR)/main.c
+	mkdir -p $(OBJ_DIR)
+	$(CC) -c $(SRC_DIR)/main.c -o $@ $(CFLAGS)
 
-pnm.o: pnm.c
-	$(CC) -c pnm.c -o pnm.o $(CFLAGS)
+$(OBJ_DIR)/pnm.o: $(SRC_DIR)/pnm.c $(SRC_DIR)/pnm.h
+	$(CC) -c $(SRC_DIR)/pnm.c -o $@ $(CFLAGS)
 
 clean:
-	rm -f *.o $(EXEC) *~
+	rm -f $(OBJ_DIR)/*.o $(TARGET)
 
+git:
+	git pull
+	git add .
+	git commit -m "Makefile push `date +'%Y-%m-%d %H:%M:%S'`"
+	git push
