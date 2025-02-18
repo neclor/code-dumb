@@ -1,21 +1,16 @@
 /**
- * main.c
- *
- * Ce fichier contient la fonction main() du programme de manipulation
- * de fichiers pnm.
- *
  * @author: Pavlov Aleksandr s2400691
  * @date:
  * @projet: INFO0030 Projet 1
 */
 
-#include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
+#include <stdio.h>
 #include <ctype.h>
+#include <string.h>
 #include <getopt.h>
 
-#include "pnm/pnm.h"
+#include "pnm.h"
 
 #define PROGRAM_NAME "./pnm"
 #define VERSION "1.0"
@@ -57,24 +52,13 @@ Mandatory arguments to long options are mandatory for short options too.\n\
    exit(status);
 }
 
-int compare_ignore_case(const char *s1, const char *s2) {
-   int i = 0;
-   while (1) {
-      char c1 = s1[i], c2 = s2[i];
-      if (c1 == '\0' && c2 == '\0') return 1;
-      if (c1 == '\0' || c2 == '\0') return 0;
-      if (tolower(c1) != tolower(c2)) return 0;
-      i++;
-   }
-}
-
 int main(int argc, char **argv) {
    const char *format_string = NULL;
    const char *input_filename = NULL;
    const char *output_filename = NULL;
 
    FormatPNM format;
-   PNM *image;
+   PNM *image = NULL;
 
    program_name = argv[0];
 
@@ -121,8 +105,13 @@ int main(int argc, char **argv) {
       usage(EXIT_FAILURE);
    }
 
-   format = str_to_format(format_string);
-   if (input_filename == NULL) {
+   if (strcmp(format_string, "PBM") == 0) {
+      format = FORMAT_PBM;
+   } else if (strcmp(format_string, "PGM") == 0) {
+      format = FORMAT_PGM;
+   } else if (strcmp(format_string, "PPM") == 0) {
+      format = FORMAT_PPM;
+   } else {
       fprintf(stderr, "%s: unrecognized format '%s' specified with -f\n",
          program_name, format_string);
       usage(EXIT_FAILURE);
@@ -131,25 +120,48 @@ int main(int argc, char **argv) {
    int ok = 1;
    switch (load_pnm(&image, input_filename)) {
       case PNM_LOAD_MEMORY_ERROR:
-         fprintf(stderr, "%s: ", program_name);
-         perror("");
          ok = 0;
+         fprintf(stderr, "%s: ", program_name);
          break;
       case PNM_LOAD_INVALID_FILENAME:
-         fprintf(stderr, "%s: invalid filename '%s': ", program_name, input_filename);
-         perror("");
          ok = 0;
+         fprintf(stderr, "%s: invalid filename '%s': ",
+            program_name, input_filename);
          break;
       case PNM_LOAD_DECODE_ERROR:
-         fprintf(stderr, "%s: '%s': decode error\n", program_name, input_filename);
          ok = 0;
+         fprintf(stderr, "%s: '%s': decode error",
+            program_name, input_filename);
          break;
    }
 
+   if (ok == 0) {
+      perror("");
+      return EXIT_FAILURE;
+   }
 
+   if (format != get_format(image)) {
+      fprintf(stderr, "%s: wrong format passed as argument '%s'",
+         program_name, format_string);
+   }
 
+   switch (write_pnm(image, output_filename))
+   {
+      case PNM_WRITE_INVALID_FILENAME:
+         ok = 0;
+         fprintf(stderr, "%s: invalid filename '%s': ",
+            program_name, input_filename);
+         break;
+      case PNM_WRITE_FILE_MANIPULATION_ERROR:
+         ok = 0;
+         fprintf(stderr, "%s: '%s': file manipulation error: ",
+            program_name, input_filename);
+         break;
+   }
 
+   if (ok == 0) {
+      perror("");
+   }
 
    return ok ? EXIT_SUCCESS : EXIT_FAILURE;
 }
-

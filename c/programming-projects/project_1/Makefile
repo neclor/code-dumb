@@ -12,7 +12,7 @@ LDFLAGS =
 SRC_DIR = src
 OBJ_DIR = bin
 
-OBJS = $(OBJ_DIR)/main.o $(OBJ_DIR)/pnm.o $(OBJ_DIR)/my_string.o
+OBJS = $(OBJ_DIR)/main.o $(OBJ_DIR)/pnm.o
 
 all: $(TARGET)
 
@@ -23,11 +23,8 @@ $(OBJ_DIR)/main.o: $(SRC_DIR)/main.c
 	mkdir -p $(OBJ_DIR)
 	$(CC) -c $(SRC_DIR)/main.c -o $@ $(CFLAGS)
 
-$(OBJ_DIR)/pnm.o: $(SRC_DIR)/pnm/pnm.c $(SRC_DIR)/pnm/pnm.h
-	$(CC) -c $(SRC_DIR)/pnm/pnm.c -o $@ $(CFLAGS)
-
-$(OBJ_DIR)/my_string.o: $(SRC_DIR)/my_string/my_string.c $(SRC_DIR)/my_string/my_string.h
-	$(CC) -c $(SRC_DIR)/my_string/my_string.c -o $@ $(CFLAGS)
+$(OBJ_DIR)/pnm.o: $(SRC_DIR)/pnm.c $(SRC_DIR)/pnm.h
+	$(CC) -c $(SRC_DIR)/pnm.c -o $@ $(CFLAGS)
 
 clean:
 	rm -f $(OBJ_DIR)/*.o $(TARGET)

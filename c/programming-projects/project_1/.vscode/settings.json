@@ -15,6 +15,10 @@
         "typeinfo": "cpp",
         "unistd.h": "c",
         "pnm.h": "c",
-        "my_string.h": "c"
+        "my_string.h": "c",
+        "limits.h": "c",
+        "stddef.h": "c",
+        "string.h": "c",
+        "strings.h": "c"
     }
 }
