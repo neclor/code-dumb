@@ -19,7 +19,7 @@ ROUGE = (255, 0, 0)
 
 
 ### Variables Globales
-valeur_memorisee: int = 9
+valeur_memorisee: int = 0
 
 
 def dessiner_arduino(sortie_arduino, sortie_CD4511, sortie_bouton):
@@ -104,8 +104,9 @@ def sortie_memorisee():
     return np.array(result)
 
 
-def gerer_click():
-    return 0
+def click():
+    global valeur_memorisee
+    valeur_memorisee += 1
 
 
 def connexion_bouton(sortie_bouton):
@@ -150,20 +151,29 @@ image_CD4028 = pygame.image.load('images/CD4028.png').convert_alpha(fenetre)
 image_bouton = pygame.image.load('images/bouton.png').convert_alpha(fenetre)
 couleur_fond = GRIS
 
-
+pygame.time.set_timer(pygame.USEREVENT, temps)
 
 # Boucle principale
-
+sortie_bouton = 0
 
 while True:
     temps_maintenant = pygame.time.get_ticks()
     for evenement in pygame.event.get():
+        if evenement.type == pygame.USEREVENT:
+            pass
         if evenement.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
 
-    sortie_bouton = 0
-    if pygame.mouse.get_pressed()[0] == 1 and pygame.Vector2(pygame.mouse.get_pos()).distance_to(pos_centre_bouton) <= rayon_bouton: sortie_bouton = 1
+    button_pressed: bool = pygame.mouse.get_pressed()[0] == 1 and pygame.Vector2(pygame.mouse.get_pos()).distance_to(pos_centre_bouton) <= rayon_bouton
+
+    if not button_pressed:
+        sortie_bouton = 0
+
+    elif sortie_bouton == 0:
+        click()
+        sortie_bouton = 1
+
     fenetre.fill(couleur_fond)
 
     sortie_CD4511 = composant_CD4511(sortie_memorisee())
