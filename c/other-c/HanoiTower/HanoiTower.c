@@ -3,7 +3,7 @@
 #include <string.h>
 
 
-#define COUNT 1000
+#define COUNT 7
 
 
 int tower_1[COUNT] = { 0 };
@@ -69,7 +69,7 @@ void draw_towers() {
 void move(int number, int from[COUNT], int to[COUNT], int buffer[COUNT]) {
     if (number == 1) {
         add(to, remove(from));
-        //draw_towers();
+        draw_towers();
     }
     else if (number > 1) {
         move(number - 1, from, buffer, to);
@@ -78,7 +78,6 @@ void move(int number, int from[COUNT], int to[COUNT], int buffer[COUNT]) {
     }
 }
 
-
 int main() {
     for (int i = 0; i < COUNT; i++) {
         tower_1[i] = COUNT - i;
@@ -86,6 +85,4 @@ int main() {
     draw_towers();
     move(COUNT, tower_1, tower_2, tower_3);
     draw_towers();
-
-
 }
