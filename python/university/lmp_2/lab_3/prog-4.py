@@ -19,7 +19,7 @@ ROUGE = (255, 0, 0)
 
 
 ### Variables Globales
-valeur_memorisee: int = 0
+valeur_memorisee: int = 3
 
 
 def dessiner_arduino(sortie_arduino, sortie_CD4511, sortie_bouton):
@@ -151,7 +151,6 @@ image_CD4028 = pygame.image.load('images/CD4028.png').convert_alpha(fenetre)
 image_bouton = pygame.image.load('images/bouton.png').convert_alpha(fenetre)
 couleur_fond = GRIS
 
-pygame.time.set_timer(pygame.USEREVENT, temps)
 
 # Boucle principale
 sortie_bouton = 0
