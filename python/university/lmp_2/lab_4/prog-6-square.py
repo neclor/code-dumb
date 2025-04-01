@@ -54,9 +54,9 @@ def generer_signaux(delta_t):
     T = 1 / v # period
     R = 2 # resistance
 
-    phase = math.fmod(phase + delta_t / T * PI_2, PI_2)
+    phase = math.fmod(phase + delta_t, T)
 
-    U = A * math.cos(phase) # tension
+    U = A * 1 if phase > T / 2 else 0 # tension
     I = U / R # courant
     P = U * I # puissance
 
