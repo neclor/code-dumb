@@ -60,3 +60,58 @@ ss
 mean(virg)
 mean(vers)
 
+
+# test 5
+
+set.seed(189)
+
+x1<-cars$speed
+y1<-cars$dist
+
+x2<-sample(rep(c(1, 2, 3, 4), c(5, 10, 8, 6)))
+y2<-sample(rep(c(10, 11, 12), c(11, 13, 5)))
+
+tab<-table(x2, y2)
+tab
+
+x1[x1 <= 15]
+y1[y1 <= 40]
+
+x1_cut <- cut(x1, breaks = c(0, 15, 25), labels = c("[0,15]", "[15,25]"))
+x1[x1 <= 15]
+x1_cut
+
+x1_cut
+
+# Разбиваем y1 на интервалы [0,40], [40,80], [80,120]
+y1_cut <- cut(y1, breaks = c(0, 40, 80, 120), labels = c("[0,40]", "[40,80]", "[80,120]"))
+y1[y1 <= 40]
+y1_cut
+table(y1_cut, x1_cut)
+
+x1_cut
+y1_cut
+
+contingency_table["[0,40]", "[0,15]"]
+
+x2_if_y2_10<-x2[y2 == 10]
+x2_if_y2_10
+sum(x2_if_y2_10)
+
+
+cor(x1, y1)
+cor(x1[-23], y1[-23]) 
+
+plot(x1, y1)
+identify(x1, y1)
+
+
+x<-c(0,0,0,0,0, 0,0,0,0, 1,1,1,1,1,1, 1,1,1,1,1,1,1, 2,2,2, 2,2,2,2,2,2,2,2,2)
+y<-c(0,0,0,0,0, 1,1,1,1, 0,0,0,0,0,0, 1,1,1,1,1,1,1, 0,0,0, 1,1,1,1,1,1,1,1,1)
+
+tab<-table(x, y)
+tab
+cov(x, y)
+
+
+
