@@ -59,9 +59,9 @@ def generer_signaux(delta_t):
     R = 1000            # resistance
     C = 470 / (10 ** 9) # capacitance
 
-    phase = math.fmod(phase + delta_t, T)
+    phase = math.fmod(phase + delta_t / T * PI_2, PI_2)
 
-    U1 = A * (1 if phase > T / 2 else 0) # tension
+    U1 = A * math.cos(phase) # tension
     U2 = tension_condensateur
     #print(tension_condensateur)
 
@@ -71,7 +71,7 @@ def generer_signaux(delta_t):
 
     tension_condensateur = U2
 
-    return (U1, U2, I * 20000, P * 20000)
+    return (U1, U2, I * 2000, P * 2000)
 
 
 def acquisition(t):
