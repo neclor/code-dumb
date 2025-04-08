@@ -11,14 +11,13 @@ GRAY: pygame.Color = pygame.Color("#808080")
 
 
 RESOLUTION: tuple[int, int] = (800, 600)  # (800, 600)
-FPS: int = 100
+FPS: int = 25
 
 
-K: int = 0
-R: float = 0
-L: float = 0
-
-B: pygame.Vector2 = pygame.Vector2(0, 0)
+K: int = 1000
+R: float = 0.02
+L: float = 0.06
+B: float = 0.5
 
 
 surface: pygame.Surface
@@ -27,6 +26,9 @@ font: pygame.font.Font
 
 
 motor_angle: float = 0
+counter: int = 0
+motor_current: float = 0
+motor_speed: float = 0
 
 
 def main() -> None:
@@ -37,6 +39,7 @@ def main() -> None:
 def init() -> None:
     global surface, clock, font
     pygame.init()
+    pygame.key.set_repeat(10, 10)
     clock = pygame.time.Clock()
     surface = pygame.display.set_mode(RESOLUTION)
     font = pygame.font.SysFont("monospace", 16)
@@ -45,20 +48,21 @@ def init() -> None:
 def run() -> None:
     while True:
         delta: float = clock.get_time() / 1000
+        check_input()
+        update_motor(delta)
         draw()
         update()
-        check_input()
 
 
 def check_input() -> None:
-    global mobile, electric_field, magnetic_field, cyclotron_mode
+    global counter
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
         elif event.type == pygame.KEYDOWN:
-            pass
-
+            if event.key == pygame.K_SPACE:
+                counter = 5
 
 def update() -> None:
     pygame.display.set_caption(str(round(clock.get_fps())))
@@ -69,7 +73,7 @@ def update() -> None:
 def draw() -> None:
     surface.fill(SKY)
     draw_engine()
-    # draw_table()
+    draw_table()
 
 
 def draw_engine() -> None:
@@ -94,29 +98,41 @@ def draw_engine() -> None:
 
 
 def draw_table() -> None:
-    surface.blit(font.render(f"Electric field: {electric_field.y:.2f} V/m", True, BLACK), (200, 40))
-    surface.blit(font.render(f"Magnetic field: {magnetic_field:.2f} T", True, BLACK), (200, 80))
-
-    kinetic_energy: float = mobile.mass * mobile.velocity.length_squared() / 2 * 10 ** 6
-    surface.blit(font.render(f"Kinetic energy: {kinetic_energy:.2f} μJ", True, BLACK), (200, 120))
+    surface.blit(font.render(f"Current: {motor_current:.2f} A", True, BLACK), (50, 40))
 
 
+def update_motor(delta: float) -> None:
+    global motor_current, motor_angle, motor_speed
+    update_motor_current()
+
+    J: float = 1
+    c: float = 0.2
+
+    torque: float = 2 * R * (get_winding_current() * (K * L) * B) * math.cos(motor_angle)
+    torque_friction: float = c * motor_speed
+
+    angular_acceleration: float = (torque - torque_friction) / J
+    motor_angle += motor_speed * delta + angular_acceleration * (delta ** 2) / 2
+    motor_angle = math.fmod(motor_angle, 2 * math.pi)
+
+    motor_speed += angular_acceleration * delta
 
 
-def calculate_laplace_force(i: float) -> float:
-    L
+def update_motor_current() -> None:
+    global counter, motor_current
+    if counter == 0:
+        motor_current = 0
+        return
+    counter -= 1
+    motor_current = 1
 
 
+def get_winding_current() -> float:
+    HALF_PI: float = math.pi / 2
 
-    force += electric_field * mobile.charge
-    force += mobile.velocity.cross(magnetic_field) * mobile.charge
-    return force
-
-
-
-
-
-
+    if (HALF_PI < motor_angle < 3 * HALF_PI):
+        return -motor_current
+    return motor_current
 
 
 if __name__ == "__main__": main()
