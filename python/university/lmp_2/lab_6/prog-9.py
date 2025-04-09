@@ -30,6 +30,9 @@ counter: int = 0
 motor_current: float = 0
 motor_speed: float = 0
 
+motor_voltage: float = 0
+circuit_is_open: bool = True
+
 
 def main() -> None:
     init()
@@ -99,32 +102,47 @@ def draw_engine() -> None:
 
 def draw_table() -> None:
     surface.blit(font.render(f"Current: {motor_current:.2f} A", True, BLACK), (50, 40))
+    surface.blit(font.render(f"Voltage: {motor_voltage:.2f} V", True, BLACK), (50, 80))
 
 
 def update_motor(delta: float) -> None:
-    global motor_current, motor_angle, motor_speed
-    update_motor_current()
+    global motor_current, motor_angle, motor_speed, motor_voltage, circuit_is_open
+    update_motor_counter()
+
+    HALF_PI: float = math.pi / 2
 
     J: float = 1
     c: float = 0.2
+
+    Rm: float = 10
+    E: float = 2 * K * R * L * B * motor_speed * abs(math.cos(motor_angle))
+
+    if circuit_is_open:
+        motor_voltage = E
+        motor_current = 0
+    else:
+        motor_voltage = 10
+        motor_current = (motor_voltage - E) / Rm
+
 
     torque: float = 2 * R * (get_winding_current() * (K * L) * B) * math.cos(motor_angle)
     torque_friction: float = c * motor_speed
 
     angular_acceleration: float = (torque - torque_friction) / J
+
     motor_angle += motor_speed * delta + angular_acceleration * (delta ** 2) / 2
     motor_angle = math.fmod(motor_angle, 2 * math.pi)
 
     motor_speed += angular_acceleration * delta
 
 
-def update_motor_current() -> None:
-    global counter, motor_current
+def update_motor_counter() -> None:
+    global counter, circuit_is_open
     if counter == 0:
-        motor_current = 0
+        circuit_is_open = True
         return
     counter -= 1
-    motor_current = 1
+    circuit_is_open = False
 
 
 def get_winding_current() -> float:
