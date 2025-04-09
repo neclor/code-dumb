@@ -1,11 +1,3 @@
-# Secret Telegram API data
-api_data.py
-*.session
-*.session-journal
-
-# Logs
-*.log
-
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
