@@ -1,0 +1,27 @@
+# Format
+P2 # PGM
+
+# Width
+3
+
+# Height
+3
+
+# Max value
+255
+
+### DATA ###
+
+255 # Max value
+
+      0  1
+10  100  0
+ 0    0  0
+
+# End
+
+# Extra data
+
+1 1 1
+
+# End
