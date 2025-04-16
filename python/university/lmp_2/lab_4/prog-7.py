@@ -71,7 +71,7 @@ def generer_signaux(delta_t):
 
     tension_condensateur = U2
 
-    return (U1, U2, I * 20000, P * 20000)
+    return (U1, U2, I, P)
 
 
 def acquisition(t):
@@ -152,14 +152,14 @@ seuil_trigger = 5.0
 seuil_trigger_delta = 0.2
 
 couleur_signaux = [ JAUNE, CYAN, MAGENTA, VERT ]
-gain_signaux = [ 20, 20, 20, 20 ]
+gain_signaux = [ 20, 20, 20000, 20000 ]
 
 # Initialisation
 
 pygame.init()
 
 fenetre = pygame.display.set_mode(dimensions_fenetre)
-pygame.display.set_caption("Programme 6")
+pygame.display.set_caption("Programme 7")
 
 horloge = pygame.time.Clock()
 couleur_fond = BLEUCLAIR

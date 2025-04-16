@@ -71,7 +71,7 @@ def generer_signaux(delta_t):
 
     tension_condensateur = U2
 
-    return (U1, U2, I * 2000, P * 2000)
+    return (U1, U2, I, P)
 
 
 def acquisition(t):
@@ -152,7 +152,7 @@ seuil_trigger = 5.0
 seuil_trigger_delta = 0.2
 
 couleur_signaux = [ JAUNE, CYAN, MAGENTA, VERT ]
-gain_signaux = [ 20, 20, 20, 20 ]
+gain_signaux = [ 20, 20, 20000, 20000 ]
 
 # Initialisation
 
