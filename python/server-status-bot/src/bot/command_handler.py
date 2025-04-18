@@ -32,12 +32,12 @@ Commands list:
 - /restart: Restart bot
 """
     buttons = [
-        [Button.switch_inline_query_current_chat("/help", "/help")],
-        [Button.switch_inline_query_current_chat("/status", "/status")],
-        [Button.switch_inline_query_current_chat("/logs", "/logs")],
-        [Button.switch_inline_query_current_chat("/clearlogs", "/clearlogs")],
-        [Button.switch_inline_query_current_chat("/gitpull", "/gitpull")],
-        [Button.switch_inline_query_current_chat("/restart", "/restart")],
+        Button.text("/help"),
+        Button.text("/status"),
+        Button.text("/logs"),
+        Button.text("/clearlogs"),
+        Button.text("/gitpull"),
+        Button.text("/restart"),
     ]
     await event.respond(description, buttons=buttons)
 
