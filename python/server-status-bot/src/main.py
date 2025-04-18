@@ -23,7 +23,5 @@ def main() -> None:
 
     loop.run_forever()
 
-    logger.info("End")
-
 
 if __name__ == "__main__": main()

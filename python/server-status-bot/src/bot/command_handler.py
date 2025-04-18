@@ -1,6 +1,6 @@
 import logging
 import subprocess
-from telethon.sync import TelegramClient, events
+from telethon.sync import TelegramClient, events, Button
 
 import config as Config
 import server_manager as ServerManager
@@ -22,9 +22,8 @@ def setup_client(client: TelegramClient) -> None:
 
 
 async def help_handler(event) -> None:
-    await event.respond(
-"""
-Commands:
+    description: str ="""
+Commands list:
 - /help: Show help
 - /status: Show status
 - /logs: Show logs
@@ -32,7 +31,15 @@ Commands:
 - /gitpull: Pull from git
 - /restart: Restart bot
 """
-    )
+    buttons = [
+        [Button.switch_inline_query_current_chat("/help", "/help")],
+        [Button.switch_inline_query_current_chat("/status", "/status")],
+        [Button.switch_inline_query_current_chat("/logs", "/logs")],
+        [Button.switch_inline_query_current_chat("/clearlogs", "/clearlogs")],
+        [Button.switch_inline_query_current_chat("/gitpull", "/gitpull")],
+        [Button.switch_inline_query_current_chat("/restart", "/restart")],
+    ]
+    await event.respond(description, buttons=buttons)
 
 
 async def status_handler(event) -> None:
@@ -44,7 +51,8 @@ async def logs_handler(event) -> None:
     try:
         with open(Config.LOG_PATH, "r") as log_file:
             logs = log_file.read()
-            if len(logs) > TELEGRAM_MESSAGE_LIMIT: logs = logs[-TELEGRAM_MESSAGE_LIMIT:]
+            if len(logs) > TELEGRAM_MESSAGE_LIMIT:
+                logs = logs[-TELEGRAM_MESSAGE_LIMIT:]
     except Exception as e:
         logger.error(f"Logs reading error: {e}")
         await event.respond(f"Logs reading error: {e}")
@@ -55,6 +63,7 @@ async def logs_handler(event) -> None:
     except Exception as e:
         logger.error(f"Logs sending error: {e}")
         await event.respond(f"Logs sending error: {e}")
+        logger.warning(logs)
 
 
 async def clearlogs_handler(event) -> None:
@@ -82,7 +91,7 @@ async def gitpull_handler(event) -> None:
 
 async def restart_handler(event) -> None:
     try:
-        ServerManager.restart_service()
+        ServerManager.terminate_service()
     except Exception as e:
-        logger.error(f"Restart error: {e}")
-        await event.respond(f"Restart error: {e}")
+        logger.error(f"Service termination error: {e}")
+        await event.respond(f"Service termination error: {e}")
