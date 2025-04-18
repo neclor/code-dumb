@@ -4,6 +4,7 @@ api_keys.py
 *.session-journal
 
 # Logs
+/logs
 *.log
 
 # Byte-compiled / optimized / DLL files
