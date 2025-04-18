@@ -1,9 +1,15 @@
+import asyncio
 from datetime import timedelta
+import logging
 import psutil
 import subprocess
+import sys
 import time
 
 import config as Config
+
+
+logger: logging.Logger = logging.getLogger(__name__)
 
 
 def get_status() -> str:
@@ -26,5 +32,9 @@ def git_pull() -> subprocess.CompletedProcess[str]:
     return subprocess.run(["git", "pull"], capture_output=True, text=True)
 
 
-def restart_service() -> None:
-    subprocess.run(["systemctl", "restart", Config.SERVICE_NAME])
+def terminate_service() -> None:
+    loop: asyncio.AbstractEventLoop = asyncio.get_event_loop()
+    loop.stop()
+    loop.close()
+    logger.info("Exit")
+    sys.exit()
