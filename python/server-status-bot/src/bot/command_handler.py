@@ -45,6 +45,8 @@ async def inline_handler(event) -> None:
 async def help_handler(event) -> None:
     description: str ="""
 Commands list:
+
+- [/help](/help): Show help
 - /help: Show help
 - /status: Show status
 - /logs: Show logs
@@ -52,15 +54,7 @@ Commands list:
 - /gitpull: Pull from git
 - /restart: Restart bot
 """
-    buttons = [
-        [Button.switch_inline("/help", b"/help")],
-        [Button.switch_inline("/status", b"/status")],
-        [Button.switch_inline("/logs", b"/logs")],
-        [Button.switch_inline("/clearlogs", b"/clearlogs")],
-        [Button.switch_inline("/gitpull", b"/gitpull")],
-        [Button.switch_inline("/restart", b"/restart")],
-    ]
-    await event.respond(description, buttons=buttons)
+    await event.respond(description, parse_mode="markdown")
 
 
 async def status_handler(event) -> None:
