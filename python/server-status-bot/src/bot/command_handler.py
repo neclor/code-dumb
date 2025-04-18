@@ -42,11 +42,11 @@ async def inline_handler(event) -> None:
             logger.warning(f"Unknown inline data: {data}")
 
 
-async def help_handler(event) -> None:
+async def help_handler(event: events.newmessage.NewMessage.Event) -> None:
     description: str ="""
 Commands list:
-
-- [/help](/help): Show help
+<a href="/status">Статус</a>
+[/help](/help): Show help
 - /help: Show help
 - /status: Show status
 - /logs: Show logs
@@ -54,7 +54,7 @@ Commands list:
 - /gitpull: Pull from git
 - /restart: Restart bot
 """
-    await event.respond(description, parse_mode="markdown")
+    await event.respond(description, parse_mode="html")
 
 
 async def status_handler(event) -> None:
