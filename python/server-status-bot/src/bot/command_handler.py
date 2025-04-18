@@ -20,33 +20,10 @@ def setup_client(client: TelegramClient) -> None:
     client.on(events.NewMessage(pattern=r"/gitpull"))(gitpull_handler)
     client.on(events.NewMessage(pattern=r"/restart"))(restart_handler)
 
-    client.on(events.CallbackQuery)(inline_handler)
 
-
-async def inline_handler(event) -> None:
-    data: str = event.data.decode("utf-8")
-    match data:
-        case "/help":
-            await help_handler(event)
-        case "/status":
-            await status_handler(event)
-        case "/logs":
-            await logs_handler(event)
-        case "/clearlogs":
-            await clearlogs_handler(event)
-        case "/gitpull":
-            await gitpull_handler(event)
-        case "/restart":
-            await restart_handler(event)
-        case _:
-            logger.warning(f"Unknown inline data: {data}")
-
-
-async def help_handler(event: events.newmessage.NewMessage.Event) -> None:
+async def help_handler(event) -> None:
     description: str ="""
 Commands list:
-<a href="/status">Статус</a>
-[/help](/help): Show help
 - /help: Show help
 - /status: Show status
 - /logs: Show logs
@@ -54,7 +31,7 @@ Commands list:
 - /gitpull: Pull from git
 - /restart: Restart bot
 """
-    await event.respond(description, parse_mode="html")
+    await event.respond(description)
 
 
 async def status_handler(event) -> None:
