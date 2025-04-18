@@ -53,12 +53,12 @@ Commands list:
 - /restart: Restart bot
 """
     buttons = [
-        [Button.inline("/help", b"/help")],
-        [Button.inline("/status", b"/status")],
-        [Button.inline("/logs", b"/logs")],
-        [Button.inline("/clearlogs", b"/clearlogs")],
-        [Button.inline("/gitpull", b"/gitpull")],
-        [Button.inline("/restart", b"/restart")],
+        [Button.switch_inline("/help", b"/help")],
+        [Button.switch_inline("/status", b"/status")],
+        [Button.switch_inline("/logs", b"/logs")],
+        [Button.switch_inline("/clearlogs", b"/clearlogs")],
+        [Button.switch_inline("/gitpull", b"/gitpull")],
+        [Button.switch_inline("/restart", b"/restart")],
     ]
     await event.respond(description, buttons=buttons)
 
