@@ -1,5 +1,0 @@
-MY_SESSION_NAME: str = "me"
-BOT_SESSION_NAME: str = "bot"
-API_ID: int = 20868592
-API_HASH: str = "fabd39ef3f6503fd134a6c44b6d5762a"
-BOT_TOKEN: str = "7689226209:AAG3aqgcOT7qDO6lKvu4XbZYvYvpm_nP22Q"
