@@ -6,7 +6,7 @@ import bot.bot as Bot
 
 
 logging.basicConfig(
-    level=logging.INFO,
+    level=logging.WARNING,
     format=Config.LOG_FORMAT,
     datefmt=Config.DATE_FORMAT,
     handlers=[logging.FileHandler(Config.LOG_PATH), logging.StreamHandler()]
@@ -22,7 +22,6 @@ def main() -> None:
     Bot.init(loop)
 
     loop.run_forever()
-    loop.close()
 
     logger.info("End")
 

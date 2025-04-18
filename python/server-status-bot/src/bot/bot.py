@@ -5,11 +5,11 @@ from telethon.sync import TelegramClient
 
 from api_keys import *
 import bot.command_handler as CommandHandler
-import status_monitor as StatusMonitor
+import server_manager as StatusMonitor
 
 
 RETRY_DEALY: int = 30
-STATUS_UPDATE_DELAY: int = 60 * 5
+STATUS_UPDATE_DELAY: int = 5 * 60
 
 
 logger: logging.Logger = logging.getLogger(__name__)
@@ -47,7 +47,7 @@ async def update_status() -> None:
             try:
                 if last_status_message_id is not None: await bot.delete_messages("me", last_status_message_id)
             except Exception as e:
-                logger.error(f"Deleting message error: {e}")
+                logger.warning(f"Deleting message error: {e}")
 
             last_status_message_id = status_message.id
         except Exception as e:

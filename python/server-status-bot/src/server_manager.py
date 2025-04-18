@@ -1,6 +1,9 @@
 from datetime import timedelta
 import psutil
+import subprocess
 import time
+
+import config as Config
 
 
 def get_status() -> str:
@@ -17,3 +20,11 @@ Server status:
 - Uptime: {uptime}
 """
     return status_message
+
+
+def git_pull() -> subprocess.CompletedProcess[str]:
+    return subprocess.run(["git", "pull"], capture_output=True, text=True)
+
+
+def restart_service() -> None:
+    subprocess.run(["systemctl", "restart", Config.SERVICE_NAME])

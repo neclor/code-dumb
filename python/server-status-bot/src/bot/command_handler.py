@@ -1,8 +1,9 @@
 import logging
+import subprocess
 from telethon.sync import TelegramClient, events
 
 import config as Config
-import status_monitor as StatusMonitor
+import server_manager as ServerManager
 
 
 TELEGRAM_MESSAGE_LIMIT: int = 4096
@@ -16,6 +17,8 @@ def setup_client(client: TelegramClient) -> None:
     client.on(events.NewMessage(pattern="/status"))(status_handler)
     client.on(events.NewMessage(pattern="/logs"))(logs_handler)
     client.on(events.NewMessage(pattern="/clearlogs"))(clearlogs_handler)
+    client.on(events.NewMessage(pattern="/gitpull"))(gitpull_handler)
+    client.on(events.NewMessage(pattern="/restart"))(restart_handler)
 
 
 async def help_handler(event) -> None:
@@ -26,12 +29,14 @@ Commands:
 - /status: Show status
 - /logs: Show logs
 - /clearlogs: Clear logs
+- /gitpull: Pull from git
+- /restart: Restart bot
 """
     )
 
 
 async def status_handler(event) -> None:
-    await event.respond(StatusMonitor.get_status())
+    await event.respond(ServerManager.get_status())
 
 
 async def logs_handler(event) -> None:
@@ -45,7 +50,11 @@ async def logs_handler(event) -> None:
         await event.respond(f"Logs reading error: {e}")
         return
 
-    await event.respond(Config.LOG_PATH + ":\n" + logs)
+    try:
+        await event.respond(Config.LOG_PATH + ":\n" + logs)
+    except Exception as e:
+        logger.error(f"Logs sending error: {e}")
+        await event.respond(f"Logs sending error: {e}")
 
 
 async def clearlogs_handler(event) -> None:
@@ -54,7 +63,26 @@ async def clearlogs_handler(event) -> None:
             log_file.write("")
         logger.info("Logs have been cleared")
     except Exception as e:
+        logger.error(f"Logs clearing error: {e}")
         await event.respond(f"Logs clearing error: {e}")
         return
 
     await event.respond("Logs have been cleared")
+
+
+async def gitpull_handler(event) -> None:
+    try:
+        result: subprocess.CompletedProcess[str] = ServerManager.git_pull()
+        if result.returncode != 0: raise Exception(result.stderr)
+        await event.respond("Git pull completed")
+    except Exception as e:
+        logger.error(f"Git pull error: {e}")
+        await event.respond(f"Git pull error: {e}")
+
+
+async def restart_handler(event) -> None:
+    try:
+        ServerManager.restart_service()
+    except Exception as e:
+        logger.error(f"Restart error: {e}")
+        await event.respond(f"Restart error: {e}")

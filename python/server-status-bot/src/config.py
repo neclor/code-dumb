@@ -1,4 +1,6 @@
-LOG_PATH = "logs/bot.log"
-LOG_FORMAT = "[%(levelname)s %(asctime)s] %(name)s: %(message)s"
+SERVICE_NAME: str = "server-status-bot.service"
 
-DATE_FORMAT = "%Y-%m-%d %H:%M"
+LOG_PATH: str = "logs/bot.log"
+LOG_FORMAT: str = "[%(levelname)s %(asctime)s] %(name)s: %(message)s"
+
+DATE_FORMAT: str = "%Y-%m-%d %H:%M"
