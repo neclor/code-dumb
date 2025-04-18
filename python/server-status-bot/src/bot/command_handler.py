@@ -13,12 +13,33 @@ logger: logging.Logger = logging.getLogger(__name__)
 
 
 def setup_client(client: TelegramClient) -> None:
-    client.on(events.NewMessage(pattern="/help"))(help_handler)
-    client.on(events.NewMessage(pattern="/status"))(status_handler)
-    client.on(events.NewMessage(pattern="/logs"))(logs_handler)
-    client.on(events.NewMessage(pattern="/clearlogs"))(clearlogs_handler)
-    client.on(events.NewMessage(pattern="/gitpull"))(gitpull_handler)
-    client.on(events.NewMessage(pattern="/restart"))(restart_handler)
+    client.on(events.NewMessage(pattern=r"/help"))(help_handler)
+    client.on(events.NewMessage(pattern=r"/status"))(status_handler)
+    client.on(events.NewMessage(pattern=r"/logs"))(logs_handler)
+    client.on(events.NewMessage(pattern=r"/clearlogs"))(clearlogs_handler)
+    client.on(events.NewMessage(pattern=r"/gitpull"))(gitpull_handler)
+    client.on(events.NewMessage(pattern=r"/restart"))(restart_handler)
+
+    client.on(events.CallbackQuery)(inline_handler)
+
+
+async def inline_handler(event) -> None:
+    data: str = event.data.decode("utf-8")
+    match data:
+        case "/help":
+            await help_handler(event)
+        case "/status":
+            await status_handler(event)
+        case "/logs":
+            await logs_handler(event)
+        case "/clearlogs":
+            await clearlogs_handler(event)
+        case "/gitpull":
+            await gitpull_handler(event)
+        case "/restart":
+            await restart_handler(event)
+        case _:
+            logger.warning(f"Unknown inline data: {data}")
 
 
 async def help_handler(event) -> None:
@@ -32,12 +53,12 @@ Commands list:
 - /restart: Restart bot
 """
     buttons = [
-        Button.text("/help"),
-        Button.text("/status"),
-        Button.text("/logs"),
-        Button.text("/clearlogs"),
-        Button.text("/gitpull"),
-        Button.text("/restart"),
+        [Button.inline("/help", b"/help")],
+        [Button.inline("/status", b"/status")],
+        [Button.inline("/logs", b"/logs")],
+        [Button.inline("/clearlogs", b"/clearlogs")],
+        [Button.inline("/gitpull", b"/gitpull")],
+        [Button.inline("/restart", b"/restart")],
     ]
     await event.respond(description, buttons=buttons)
 
