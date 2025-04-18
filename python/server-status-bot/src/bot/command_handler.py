@@ -5,6 +5,9 @@ import config as Config
 import status_monitor as StatusMonitor
 
 
+TELEGRAM_MESSAGE_LIMIT: int = 4096
+
+
 logger: logging.Logger = logging.getLogger(__name__)
 
 
@@ -36,6 +39,7 @@ async def logs_handler(event) -> None:
     try:
         with open(Config.LOG_PATH, "r") as log_file:
             logs = log_file.read()
+            if len(logs) > TELEGRAM_MESSAGE_LIMIT: logs = logs[-TELEGRAM_MESSAGE_LIMIT:]
     except Exception as e:
         logger.error(f"Logs reading error: {e}")
         await event.respond(f"Logs reading error: {e}")
