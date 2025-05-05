@@ -6,7 +6,7 @@ import config as Config
 import server_manager as ServerManager
 
 
-TELEGRAM_MESSAGE_LIMIT: int = 100
+TELEGRAM_MESSAGE_LIMIT: int = 512
 
 
 logger: logging.Logger = logging.getLogger(__name__)
