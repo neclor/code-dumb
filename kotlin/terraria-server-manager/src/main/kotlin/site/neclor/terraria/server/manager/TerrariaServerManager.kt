@@ -1,46 +1,65 @@
 package site.neclor.terraria.server.manager
 
-import java.io.OutputStream
+import java.io.*
+import java.util.concurrent.TimeUnit
 
 object TerrariaServerManager {
     private var process: Process? = null
+    private var outputStreamWriter: OutputStreamWriter? = null
 
-    fun startServer(serverPath: String, configFile: String) {
+    fun startServer(serverPath: String, configPath: String): String {
         if (process != null) {
-            println("Server is already running")
-            return
+            return "Terraria server is already running"
         }
 
         try {
-            val command: String = serverPath + "-config" + configFile
-            process = ProcessBuilder(command).inheritIO().start()
-            println("Terraria server started")
+            val command: String = "$serverPath -config $configPath"
+            process = ProcessBuilder(command).start()
+            if (process != null)
+                outputStreamWriter = OutputStreamWriter(process?.outputStream)
+
+            return "Terraria server started"
         } catch (e: Exception) {
-            println("Failed to start server: ${e.message}")
+            return "Failed to start server: ${e.message}"
         }
     }
 
-    fun stopServer() {
+    fun stopServer(): String {
+        if (process == null) {
+            return "Terraria server is not working"
+        }
+
         saveServer()
-        process?.destroy()
-        process = null
-    }
-
-    fun saveServer() {
-        // Обычно Terraria имеет команду для сохранения состояния сервера
-        // В этом примере предполагаем, что сервер запущен в процессе
 
         try {
-            val outputStream: OutputStream
+            outputStreamWriter?.write("exit\r\n")
+            outputStreamWriter?.flush()
 
+            process?.waitFor(5, TimeUnit.SECONDS)
 
-            process?.outputStream?.write("save\n".toByteArray())
-            println("Terraria server started")
+            process = null
+            outputStreamWriter = null
+
+            return "Terraria server stoped"
         } catch (e: Exception) {
-            println("Failed to start server: ${e.message}")
+            return "Failed to stop server: ${e.message}"
+        }
+    }
+
+    fun saveServer(): String {
+        if (process == null) {
+            return "Terraria server is not working"
         }
 
-        process?.outputStream?.write("save\n".toByteArray())
-        return "Server saved."
+        try {
+            outputStreamWriter?.write("save\r\n")
+            outputStreamWriter?.flush()
+
+            Thread.sleep(3000)
+
+            return "Terraria server saved"
+        } catch (e: Exception) {
+            return "Failed to save server: ${e.message}"
+        }
     }
 }
