@@ -24,6 +24,24 @@ fun main() {
 
 fun Application.module() {
     routing {
+        post("/start") {
+            println("POST /terraria/start")
+            val response: String = TerrariaServerManager.startServer(SERVER_PATH, CONFIG_PATH)
+            call.respondText(response)
+        }
+
+        post("/stop") {
+            println("POST /terraria/stop")
+            val response: String = TerrariaServerManager.stopServer()
+            call.respondText(response)
+        }
+
+        post("/save") {
+            println("POST /terraria/save")
+            val response: String = TerrariaServerManager.saveServer()
+            call.respondText(response)
+        }
+
         route("/terraria") {
             post("/start") {
                 println("POST /terraria/start")
