@@ -14,8 +14,7 @@ object TerrariaServerManager {
         }
 
         try {
-            val command = listOf(serverPath, "-config", configPath)
-            process = ProcessBuilder(command).start()
+            process = ProcessBuilder(serverPath, "-config", configPath).start()
             if (process != null)
                 outputStreamWriter = OutputStreamWriter(process?.outputStream)
 
