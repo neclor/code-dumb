@@ -1,0 +1,33 @@
+% !TEX root = ./main.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Dans ce fichier, vous devez définir (Input/Output/O.U.) proprement et clairement le    %
+% problème.
+%
+% Il est aussi demandé de réaliser une analyse complète (i.e., découpe en SPs)           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Définition et Analyse du Problème}\label{analyse}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\subsection{Input/Output}
+
+\begin{itemize}
+\item \textbf{Input}:
+    Un tableau d'entiers $T$ de taille $N$,
+    $N \geq 0$
+
+\item \textbf{Output}:
+    Un entier $k$ représentant la longueur du plus grand sous-tableau préfixe et suffixe
+    $0$ si aucun sous-tableau non trivial ne satisfait la condition
+
+\end{itemize}
+
+
+\subsection{Découpe en sous-problèmes}
+
+Nous décomposons le problème en deux Sp:
+\begin{enumerate}
+\item Recherche du plus grand prefixe-suffics de longeur $k$ possible de $N-1$ à $1$
+\item Vérification que le préfixe et suffixe de longueur $k$ sont égaux
+\end{enumerate}

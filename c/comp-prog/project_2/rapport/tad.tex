@@ -1,0 +1,165 @@
+% !TEX root = ./main.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Dans cette section, spécifiez formellement vos TADs (syntaxe et sémantique)            %
+% 1 sous-section/TAD                                                                     %
+% N'oubliez pas de justifier la complétude de vos TADs                                   %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Spécifications Abstraites}\label{tad}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ESCALE
+
+\subsection{TAD Escale}
+%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Syntaxe}
+%%%%%%%%%%%%%%%%%%%%%%%
+\begin{description}
+  \item[Type:]
+    \begin{description}
+      \item Escale
+    \end{description}
+  \item[Utilise:]
+    \begin{description}
+      \item Integer
+      \item String (nom)
+      \item Float (coordonnées)
+      \item Boolean
+    \end{description}
+  \item[Opérations:]
+    \begin{description}
+      \item escale\_create: String $\times$ Float $\times$ Float $\to$ Escale
+      \item escale\_get\_name: Escale $\to$ String
+      \item escale\_get\_x: Escale $\to$ Float
+      \item escale\_get\_y: Escale $\to$ Float
+      \item escale\_get\_best\_time: Escale $\to$ Float
+      \item escale\_set\_best\_time: Escale $\times$ Float
+      \item escale\_distance: Escale $\times$ Escale $\to$ Float
+      \item escale\_equal: Escale $\times$ Escale $\to$ Boolean
+    \end{description}
+\end{description}
+
+\subsubsection{Sémantique}
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{description}
+  \item[Préconditions:]
+    \begin{description}
+      \item $\forall n \in$ String, $\forall x, y \in$ Float, $\forall e \in$ Escale
+      \item $\forall x, -180 \leq x \leq 180, \forall y, -90 \leq y \leq 90$, escale\_create(n, x, y)
+      \item escale\_get\_name(e)
+      \item escale\_get\_x(e)
+      \item escale\_get\_y(e)
+      \item escale\_get\_best\_time(e)
+      \item $\forall t \geq 0$ Float, escale\_set\_best\_time(e, t)
+      \item $\forall e1, e2 \in$ Escale, escale\_distance(e1, e2)
+    \end{description}
+  \item[Axiomes:]
+    \begin{description}
+      \item $\forall e \in$ Escale, $\forall n \in$ String, $\forall x, y, t \in$ Float
+      \item escale\_get\_name(escale\_create(n, x, y)) = n
+      \item escale\_get\_x(escale\_create(n, x, y)) = x
+      \item escale\_get\_y(escale\_create(n, x, y)) = y
+      \item escale\_get\_best\_time(escale\_create(n, x, y)) = 0
+      \item escale\_distance(escale\_create(n1, x1, y1), escale\_create(n2, x2, y2)) = Haversine formula
+      \item escale\_equal(escale\_create(n1, x, y), escale\_create(n2, x, y)) = true
+      \item escale\_equal(escale\_create(n1, x1, y1), escale\_create(n2, x2, y2)) = false
+    \end{description}
+\end{description}
+
+\begin{table}[!htbp]
+  \begin{center}
+    \begin{tabular}{ll|cc}
+      & & \multicolumn{2}{c}{Opérations Internes}\\
+                                    &               & escale\_create($\cdot$) & escale\_set\_best\_time($\cdot$)\\
+      \multirow{6}{*}{Observateurs} & escale\_get\_name($\cdot$)  & \checkmark     & $\emptyset$\\
+                                    & escale\_get\_x($\cdot$) & \checkmark      & $\emptyset$\\
+                                    & escale\_get\_y($\cdot$) & \checkmark      & $\emptyset$\\
+                                    & escale\_get\_best\_time($\cdot$) & \checkmark & $\emptyset$\\
+                                    & escale\_distance($\cdot$) & \checkmark & $\emptyset$\\
+                                    & escale\_equal($\cdot$) & \checkmark & $\emptyset$\\
+    \end{tabular}
+  \end{center}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Course
+
+\subsection{TAD Course}
+%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Syntaxe}
+%%%%%%%%%%%%%%%%%%%%%%%
+\begin{description}
+  \item[Type:]
+    \begin{description}
+      \item Course
+    \end{description}
+  \item[Utilise:]
+    \begin{description}
+      \item Escale
+      \item Integer (index, comptage)
+      \item Float (temps total, meilleur temps)
+      \item Boolean
+    \end{description}
+  \item[Opérations:]
+    \begin{description}
+      \item course\_create: Escale $\times$ Escale $\to$ Course
+      \item course\_is\_circuit: Course $\to$ Boolean
+      \item course\_get\_escales\_count: Course $\to$ Integer
+      \item course\_get\_stages\_count: Course $\to$ Integer
+      \item course\_total\_time: Course $\to$ Float
+      \item course\_best\_time\_at: Course $\times$ Integer $\to$ Float
+      \item course\_append: Course $\times$ Escale $\to$ Course
+      \item course\_pop: Course $\to$ Course
+    \end{description}
+\end{description}
+
+\subsubsection{Sémantique}
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{description}
+  \item[Préconditions:]
+    \begin{description}
+      \item $\forall e, e1, e2 \in$ Escale, $\forall n \in$ String, $\forall x, y, t \in$ Float $\forall i \in$ Integer
+      \item $\forall e1, e2 \in$ Escale, escale\_get\_best\_time(e1) = 0 $\land$ escale\_equal(e1, e2) = false, course\_create(e1, e2)
+      \item course\_is\_circuit(c)
+      \item course\_get\_escales\_count(c)
+      \item course\_get\_stages\_count(c)
+      \item course\_total\_time(c)
+      \item $\forall i \in$ Integer, $0 \leq i < $course\_get\_escales\_count(c), course\_best\_time\_at(c, i)
+      \item course\_append(c, e)
+      \item $\forall c \in$ Course, course\_get\_escales\_count(c) $> 0$, course\_pop(c)
+    \end{description}
+  \item[Axiomes:]
+    \begin{description}
+      \item $\forall c \in$ Course, $\forall e, e1, e2, e3 \in$ Escale, $\forall n \in$ String, $\forall x, y, t \in$ Float $\forall i \in$ Integer
+      \item course\_create(e1, e2) = course\_pop(course\_append(course\_create(e1, e2), e3))
+      \item course\_is\_circuit(course\_create(e1, e2)) = false
+      \item course\_is\_circuit(course\_append(course\_create(e1, e2), e1)) = true
+      \item course\_is\_circuit(course\_append(course\_create(e1, e2), e3)) = false
+      \item course\_is\_circuit(course\_pop(course\_create(e1, e2))) = false
+      \item course\_get\_escales\_count(course\_create(e1, e2)) = 2
+      \item course\_get\_escales\_count(course\_append(c, e)) = course\_get\_escales\_count(c) + 1
+      \item course\_get\_escales\_count(course\_pop(c)) = course\_get\_escales\_count(c) - 1
+      \item course\_get\_stages\_count(course\_create(e1, e2)) = 1
+      \item course\_get\_stages\_count(course\_append(c, e)) = course\_get\_stages\_count(c) + 1
+      \item course\_get\_stages\_count(course\_pop(c)) = course\_get\_stages\_count(c) - 1
+      \item course\_get\_stages\_count(course\_pop(course\_pop(course\_create(e1, e2)))) = 0
+      \item course\_total\_time(course\_create(e1, e2)) = escale\_get\_best\_time(e1) + escale\_get\_best\_time(e2)
+      \item course\_total\_time(course\_append(c, e)) = course\_total\_time(c) + escale\_get\_best\_time(e)
+      \item course\_total\_time(course\_pop(course\_append(c, e))) = course\_total\_time(c)
+      \item course\_best\_time\_at(course\_create(e1, e2), 1) = escale\_get\_best\_time(e2)
+      \item course\_best\_time\_at(course\_append(c, e), course\_get\_escales\_count(c)) = escale\_get\_best\_time(e)
+      \item course\_best\_time\_at(course\_pop(course\_create(e1, e2)), 0) = escale\_get\_best\_time(e1)
+    \end{description}
+\end{description}
+
+\begin{table}[!htbp]
+  \begin{center}
+    \begin{tabular}{ll|ccc}
+      & & \multicolumn{3}{c}{Opérations Internes}\\
+                                    &               & course\_create($\cdot$) & course\_append($\cdot$) & course\_pop($\cdot$)\\
+      \multirow{5}{*}{Observateurs} & course\_is\_circuit($\cdot$)  & \checkmark & \checkmark & \checkmark\\
+                                    & course\_get\_escales\_count($\cdot$) & \checkmark & \checkmark & \checkmark\\
+                                    & course\_get\_stages\_count($\cdot$) & \checkmark & \checkmark & \checkmark\\
+                                    & course\_total\_time($\cdot$) & \checkmark & \checkmark & \checkmark\\
+                                    & course\_best\_time\_at($\cdot$) & \checkmark & \checkmark & \checkmark\\
+    \end{tabular}
+  \end{center}
+\end{table}

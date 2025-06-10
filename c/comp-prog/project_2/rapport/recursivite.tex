@@ -1,0 +1,82 @@
+% !TEX root = ./main.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Justifiez, dans cette section, chacune de vos implémentations récursives à l'aide des  %
+% 3 étapes vues au cours (cfr. Chap. 4)                                                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Implémentations Récursives}\label{recursivite}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Définition récursive:
+
+
+course\_get\_escales\_count(course) = \\$
+                \begin{cases}
+                    return\ 0; & \text{if } course == NULL \\
+                    return\ course\_get\_escales\_count(course->next) + 1; & \text{otherwise}
+                \end{cases} $
+\\
+
+course\_get\_stages\_count(course) = \\$
+                \begin{cases}
+                    return\ 0; & \text{if } course == NULL \\
+                    return\ 0; & \text{if } course->next == NULL \\
+                    return\ course\_get\_stages\_count(course->next) + 1; & \text{otherwise}
+                \end{cases} $
+\\
+
+course\_total\_time(course) = \\$
+                \begin{cases}
+                    return\ 0; & \text{if } course == NULL \\
+                    return\ (\\
+                    course\_total\_time(course->next) +\\
+                    escale\_get\_best\_time(course->escale)\\
+                    ); & \text{otherwise}
+                \end{cases} $
+\\
+
+course\_best\_time\_at(course, index) = \\$
+                \begin{cases}
+                    return\ escale\_get\_best\_time(course->escale); & \text{if } index == 0 \\
+                    return\ course\_best\_time\_at(course->next, index - 1); & \text{otherwise}
+                \end{cases} $
+\\
+
+course\_append(course, escale) = \\$
+                \begin{cases}
+                    course = malloc(sizeof(Course)); \\
+                    course->escale = escale; \\
+                    course->next = NULL; \\
+                    return\ course; & \text{if } course == NULL \\
+                    \\
+                    course->next = course\_append(course->next, escale);\\
+                    return\ course; & \text{otherwise}
+                \end{cases} $
+\\
+
+course\_pop(course) = \\$
+                \begin{cases}
+                    free(course->escale); \\
+                    free(course); \\
+                    return\ NULL; & \text{if } course->next == NULL \\
+                    \\
+                    course->next = course_pop(course->next);\\
+                    return\ course; & \text{otherwise}
+                \end{cases} $
+\\
+
+course\_free(course) = \\$
+                \begin{cases}
+                    return; & \text{if } course->next == NULL \\
+                    \\
+                    course\_free(course->next); \\
+                    free(course->escale); \\
+                    free(course); & \text{otherwise}
+                \end{cases} $
+\\
+
+course\_last(course) = \\$
+                \begin{cases}
+                    return\ course; & \text{if } course->next == NULL \\
+                    \\
+                    return\ course\_last(course->next); & \text{otherwise}
+                \end{cases} $

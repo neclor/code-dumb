@@ -1,0 +1,70 @@
+% !TEX root = ./main.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Dans cette section, expliquez les structures de données mises en place pour implémenter%
+% les différents TAD                                                                     %
+% Pensez à discuter des avantages et inconvénients de chacune de vos structures.         %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Structures de Données}\label{structures}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Pour implémenter les différents TAD, nous avons choisi deux types de structures de données : le tableau dynamique et la liste chaînée.
+
+\subsection{Escale}
+\begin{lstlisting}[caption={Structure de Escale}]
+    typedef struct Escale {
+        char *name;
+        double x;
+        double y;
+        double time;
+    } Escale;
+\end{lstlisting}
+
+\subsection{Course (Tableau)}
+\begin{lstlisting}[caption={Structure de Course (tableau)}]
+    typedef struct Course {
+        size_t escales_size;
+        size_t escales_count;
+        Escale **escales;
+    } Course;
+\end{lstlisting}
+
+\subsubsection{Avantages}
+\begin{itemize}
+    \item Accès rapide aux éléments par leur indice ($O(1)$).
+    \item Moins de surcharge mémoire due aux pointeurs supplémentaires.
+    \item Facile à parcourir séquentiellement.
+\end{itemize}
+
+\subsubsection{Inconvénients}
+\begin{itemize}
+    \item Redimensionnement coûteux si la taille initiale est insuffisante ($O(n)$).
+    \item Ajout et suppression au milieu nécessitent un déplacement des éléments ($O(n)$).
+\end{itemize}
+
+\subsection{Course (Liste Chaînée)}
+\begin{lstlisting}[caption={Structure de Course (liste chainée)}]
+    typedef struct Course {
+        Escale *escale;
+        Course *next;
+    } Course;
+\end{lstlisting}
+
+\subsubsection{Avantages}
+\begin{itemize}
+    \item Insertion et suppression en temps constant ($O(1)$) sans déplacement des éléments.
+    \item Taille flexible sans besoin de redimensionnement.
+\end{itemize}
+
+\subsubsection{Inconvénients}
+\begin{itemize}
+    \item Accès séquentiel aux éléments ($O(n)$) au lieu d'un accès direct.
+    \item Surcharge mémoire due aux pointeurs supplémentaires.
+\end{itemize}
+
+Ces choix de structures de données permettent de répondre aux différentes exigences du problème.
+Le tableau est idéal pour un accès rapide et indexé,
+tandis que la liste chaînée convient mieux aux modifications
+fréquentes et dynamiques de la course.
+
+\subsection{Structure de données}
+

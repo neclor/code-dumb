@@ -1,0 +1,26 @@
+% !TEX root = ./main.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Dans cette section, décrivez comment vous avez implémenté les différents tests         %
+% unitaires                                                                              %
+% Pensez à justifier vos choix.                                                          %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Tests Unitaires}\label{tests}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Les tests unitaires sont situés dans le dossier \texttt{test/} et utilisent le framework \texttt{seatest}.
+Pour chaque implémentation (\texttt{course\_liste} et \texttt{course\_tableau}), deux fonctions principales sont testées :
+
+\begin{itemize}
+    \item \texttt{test\_course\_append} : vérifie que l'ajout d'escales modifie correctement le nombre d'escales dans la course.
+    \item \texttt{test\_course\_total\_time} : vérifie que la somme des temps des escales est correcte après modification des temps et suppression d'éléments.
+\end{itemize}
+
+Les assertions utilisées sont \texttt{assert\_ulong\_equal} pour les entiers et \texttt{assert\_double\_equal} pour les valeurs réelles.
+
+\textbf{Justification des choix :}
+Les tests ciblent les opérations principales et les cas limites.
+
+
+\textbf{Limite :}
+Seules les fonctions d'ajout et de calcul du temps total sont testées.
+Les autres fonctions publiques ne sont pas couvertes par les tests actuels.

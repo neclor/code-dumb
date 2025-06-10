@@ -1,0 +1,24 @@
+% !TEX root = ./main.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Dans cette section, spécifiez formellement chacun des sous-problèmes.                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Specifications}\label{specifications}
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\subsection{SP1: Recherche du plus grand prefixe-suffixe:}
+\begin{itemize}
+    \item \textbf{Précondition}: $T$ pointer vers un tableau, $N \geq 0$
+    \item \textbf{Postcondition}: $T = T_0$
+    \item \textbf{Retour}: le plus grand $k \in [0, N-1]$ tel que $T[0..k-1] = T[N-k..N-1]$
+\end{itemize}
+
+
+
+\subsection{SP2: Vérification que le préfixe et sufixe de longueur $k$ sont égaux:}
+\begin{itemize}
+    \item \textbf{Précondition}: $T$ pointer vers un tableau, $0 < N, 0 < k < N$
+    \item \textbf{Postcondition}: $T = T_0$
+    \item \textbf{Retour}: $1$ si $T[0..k-1] = T[N-k..N-1]$ sinon $0$
+\end{itemize}

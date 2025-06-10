@@ -1,0 +1,172 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Ceci est le template à utiliser pour les milestones des projets d'INFO0947.            %
+%                                                                                        %
+% Vous devez décommenter et compléter les commandes introduites plus bas (intitule, ...) %
+% avant de pouvoir compiler le fichier LaTeX.                                            %
+%                                                                                        %
+% Le PDF produit doit avoir la forme suivante: grpID_ProjetX_MilestoneY.pdf              %
+% où:                                                                                    %
+%   - grpID est votre identifiant de groupe (cfr. eCampus)                               %
+%   - X est le numéro du projet (1 pour Construction, 2 pour TAD)                        %
+%   - Y est le numéro du milestone (1 ou 2)                                              %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% !TEX root = ./main.tex
+% !TEX engine = latexmk -pdf
+% !TEX buildOnSave = true
+\documentclass[a4paper, 11pt, oneside]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{array}
+\usepackage{shortvrb}
+\usepackage{listings}
+\usepackage[fleqn]{amsmath}
+\usepackage{amsfonts}
+\usepackage{fullpage}
+\usepackage{enumerate}
+\usepackage{graphicx}             % import, scale, and rotate graphics
+\usepackage{subfigure}            % group figures
+\usepackage{alltt}
+\usepackage{url}
+\usepackage{indentfirst}
+\usepackage{eurosym}
+\usepackage{listings}
+\usepackage{color}
+\usepackage[table,xcdraw,dvipsnames]{xcolor}
+
+% Change le nom par défaut des listing
+\renewcommand{\lstlistingname}{Extrait de Code}
+
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\newcommand{\coms}[1]{\textcolor{MidnightBlue}{#1}}
+
+\lstset{
+    language=C, % Utilisation du langage C
+    commentstyle={\color{MidnightBlue}}, % Couleur des commentaires
+    frame=single, % Entoure le code d'un joli cadre
+    rulecolor=\color{black}, % Couleur de la ligne qui forme le cadre
+    stringstyle=\color{RawSienna}, % Couleur des chaines de caractères
+    numbers=left, % Ajoute une numérotation des lignes à gauche
+    numbersep=5pt, % Distance entre les numérots de lignes et le code
+    numberstyle=\tiny\color{mygray}, % Couleur des numéros de lignes
+    basicstyle=\tt\footnotesize,
+    tabsize=3, % Largeur des tabulations par défaut
+    keywordstyle=\tt\bf\footnotesize\color{Sepia}, % Style des mots-clés
+    extendedchars=true,
+    captionpos=b, % sets the caption-position to bottom
+    texcl=true, % Commentaires sur une ligne interprétés en Latex
+    showstringspaces=false, % Ne montre pas les espace dans les chaines de caractères
+    escapeinside={(>}{<)}, % Permet de mettre du latex entre des <( et )>.
+    inputencoding=utf8,
+    literate=
+  {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+  {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+  {à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+  {À}{{\`A}}1 {È}{{\`E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+  {ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+  {Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+  {â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+  {Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+  {œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {ß}{{\ss}}1
+  {ű}{{\H{u}}}1 {Ű}{{\H{U}}}1 {ő}{{\H{o}}}1 {Ő}{{\H{O}}}1
+  {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Å}{{\r A}}1
+  {€}{{\euro}}1 {£}{{\pounds}}1 {«}{{\guillemotleft}}1
+  {»}{{\guillemotright}}1 {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {¿}{{?`}}1
+}
+
+%%%%%%%%%%%%%%%%% TITRE %%%%%%%%%%%%%%%%
+% Complétez et décommentez les définitions de macros suivantes :
+\newcommand{\intitule}{Milestone 2}
+\newcommand{\GrNbr}{33}
+\newcommand{\PrenomUN}{Pavlov}
+\newcommand{\NomUN}{Aleksandr}
+\newcommand{\PrenomDEUX}{Gendebien}
+\newcommand{\NomDEUX}{Alexandre}
+
+%%%%%%%% ZONE PROTÉGÉE : MODIFIEZ UNE DES DIX PROCHAINES %%%%%%%%
+%%%%%%%%            LIGNES POUR PERDRE 2 PTS.            %%%%%%%%
+\title{INFO0947: \intitule}
+\author{Groupe \GrNbr : \PrenomUN~\textsc{\NomUN}, \PrenomDEUX~\textsc{\NomDEUX}}
+\date{}
+\begin{document}
+
+\maketitle
+%%%%%%%%%%%%%%%%%%%% FIN DE LA ZONE PROTÉGÉE %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%% MILESTONE %%%%%%%%%%%%%%%
+% Écrivez le contenu de votre milestone ci-dessous.
+
+\section{Production}
+%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Dans cette section, vous rédigez la production demandée pour le milestone.             %
+%                                                                                        %
+% Soyez le plus précis et complet possible.  Toute production ne correspondant pas à ce  %
+% qui est demandé sera considérée comme ``hors sujet'' et la séance de feedback sera     %
+% contreproductive.                                                                      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Structure de données}
+
+\begin{lstlisting}[caption={Structure de données (tableau)}]
+    typedef struct Escale {
+        char *name;
+        double x;
+        double y;
+        double time;
+    } Escale;
+
+    typedef struct Course {
+        size_t escales_size;
+        size_t escales_count;
+        Escale **escales;
+    } Course;
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Structure de données (liste chainée)}]
+    typedef struct Escale {
+        char *name;
+        double x;
+        double y;
+        double time;
+    } Escale;
+
+    typedef struct Course {
+        Escale *escale;
+        Course *next;
+    } Course;
+\end{lstlisting}
+
+\subsection{Invariant}
+
+\textbf{Invariant formel:} \\
+    $escale = escale_0$ \\
+    $\land$ \\
+    $0 < i < escale\_count$ \\
+    $\land$ \\
+    $total\_time = \sum_{i=0}^{escale\_count-1} \texttt{get\_time}(escales[i])$
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{invariant.pdf}
+    \caption{Invariant graphique}
+\end{figure}
+
+
+
+\section{Question(s)}
+%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Dans cette section, vous pouvez rédiger les questions que vous avez sur le projet ou   %
+% formuler ce qui reste incompris pour vous.                                             %
+%                                                                                        %
+% Nous en discuterons lors de la rencontre feedback sur votre production pour le         %
+% milestone                                                                              %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}

@@ -1,0 +1,53 @@
+% !TEX root = ./main.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Dans cette section, vous devez étudier complètement la complexité de votre code.       %
+% Soyez le plus formel (i.e., mathématique) possible.                                    %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Complexité}\label{complexite}
+%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Fonctions sur Escale}
+
+\begin{align*}
+\texttt{escale\_create} : \mathcal{O}(1) \\
+\texttt{escale\_get\_name} : \mathcal{O}(1)\\
+\texttt{escale\_get\_x} : \mathcal{O}(1)\\
+\texttt{escale\_get\_y} : \mathcal{O}(1)\\
+\texttt{escale\_get\_best\_time} : \mathcal{O}(1)\\
+\texttt{escale\_set\_best\_time} : \mathcal{O}(1)\\
+\texttt{escale\_distance} : \mathcal{O}(1)\\
+\texttt{escale\_equal} : \mathcal{O}(1)\\
+\end{align*}
+
+\subsection{Opérations sur Course (tableau dynamique)}
+Soit $n$ le nombre d'escales, $S$ la capacité du tableau.
+
+\begin{align*}
+\texttt{course\_create} : \mathcal{O}(1)\\
+\texttt{course\_is\_circuit} : \mathcal{O}(1)\\
+\texttt{course\_get\_escales\_count} : \mathcal{O}(1) \\
+\texttt{course\_get\_stages\_count} : \mathcal{O}(1) \\
+\texttt{course\_total\_time} : \mathcal{O}(n) \\
+\texttt{course\_best\_time\_at}(i) : \mathcal{O}(1) \\
+\texttt{course\_append} :
+    \begin{cases}
+        \mathcal{O}(1) & \\
+        \mathcal{O}(n) & \text{(réallocation)}
+    \end{cases} \\
+\texttt{course\_pop} : \mathcal{O}(1)
+\end{align*}
+
+\subsection{Opérations sur \texttt{Course} (liste chaînée)}
+
+Soit $n$ le nombre d'escales.
+
+\begin{align*}
+\texttt{course\_create} : \mathcal{O}(1)\\
+\texttt{course\_is\_circuit} : \mathcal{O}(n)\\
+\texttt{course\_get\_escales\_count} : \mathcal{O}(n) \\
+\texttt{course\_get\_stages\_count} : \mathcal{O}(n) \\
+\texttt{course\_total\_time} : \mathcal{O}(n) \\
+\texttt{course\_best\_time\_at}(i) : \mathcal{O}(i) \\
+\texttt{course\_append} : \mathcal{O}(n) \\
+\texttt{course\_pop} : \mathcal{O}(n)
+\end{align*}
