@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+	<title>Records</title>
+
+	<link rel="stylesheet" type="text/css" href="styles.css">
+
+	<style>
+    		div.record { text-align: center; font-size: 400% }
+  	</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+</head>
+
+<body>
+	<a style="float: left;" class="link_button" href="index.html">Neclor</a>
+	<a class="link_button" href="records_season_0.html">Season 0</a>
+                                                                                                     
+        <br><div class="record">RECORDS</div>
+	
+	<table id="records" class="records">
+		<tr> <th>N</th> <th>Name</th> <th>Score</th> </tr>
+	</table>
+
+	<script>
+		function Td(s) { return `<td> ${s} </td>`; }
+
+		// Request records from the Backend Server and fill HTML table
+		$.getJSON("/Records", data => data
+		   .sort((a, b) => b.score != a.score ? b.score - a.score : new Date(a.timestamp) - new Date(b.timestamp))
+		   .forEach((o, i) => $('#records').append('<tr>' + Td(i+1) + Td(o.name.slice(0, 30)) + Td(o.score) + '</tr>'))
+		);
+	</script>
+</body>
+
+</html>

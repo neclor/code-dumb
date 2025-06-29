@@ -1,0 +1,37 @@
+<html lang="en">
+
+<head>
+	<title>Neclor</title>
+
+	<link rel="stylesheet" type="text/css" href="styles.css">
+
+	<style>
+    		div.netris { font-size: 400%; }
+  	</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+</head>
+
+<body>
+	Neclor
+
+	<a style="float: right;">neclorneclor@gmail.com</a>
+	<a class="link_button" href="https://github.com/neclor">Git</a>
+
+	<div class="netris">
+        	<br>NETRIS
+        	<br><a class="game_button" href="Netris/Netris.1.html">PLAY</a>
+		<a class="game_button" href="records.html">RECORDS</a>
+	</div>
+                                              	
+	<div class="visitCounter">Visits: <span id="visitCount" />
+  		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  		<script>
+  			$.get("/visitCount?url=" + window.location.href, function(count)
+			{
+  				document.getElementById("visitCount").textContent = count;
+  			});
+  		</script>
+	<div>   
+</body>
+</html>

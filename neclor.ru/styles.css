@@ -1,0 +1,58 @@
+body
+{
+    	margin: 5% 10%;
+    	color: #ffffff;
+    	background-color: #101010;
+    	font: 150% Arial;
+	text-align: left;
+}
+
+table
+{
+    width: 100%;
+}
+
+a.link_button
+{
+	margin-right: 1%;
+	color: #ffb900;
+	float: right;
+        text-decoration: none;
+}
+
+a.link_button:hover 
+{
+   	 color: #ffffff;   
+   	 text-decoration: underline;
+}
+
+a.game_button
+{
+	margin-right: 1%;
+	color: #ffb900;
+	font: 150% Arial black;
+        text-decoration: none;
+}
+
+a.game_button:hover
+{
+    	color: #ffffff;   
+   	text-decoration: underline;
+}
+
+table.records                    { text-align: left; }
+table.records th                 { background-color: #080808; }
+table.records tr:nth-child(even) { background-color: #101010; }
+table.records tr:nth-child(odd)  { background-color: #080808; }
+
+*
+{
+    	font: 115% Arial;
+    	box-sizing: border-box;
+}
+
+.visitCounter
+{
+	position: fixed;
+	bottom: 0px;
+}
