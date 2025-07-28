@@ -4,7 +4,7 @@ using System.Net.Sockets;
 
 
 
-namespace DnsTunnel.Server;
+namespace Server;
 
 
 internal class Server {

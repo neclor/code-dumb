@@ -16,7 +16,7 @@
     <PublishAot>true</PublishAot>
     <InvariantGlobalization>true</InvariantGlobalization>
 
-    <RootNamespace>DnsTunnel.Server</RootNamespace>
+    <RootNamespace>Server</RootNamespace>
   </PropertyGroup>
 
 </Project>
