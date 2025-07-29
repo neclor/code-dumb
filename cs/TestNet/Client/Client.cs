@@ -1,6 +1,8 @@
 using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
+using System.Threading.Tasks;
 
 
 namespace Client;
@@ -30,6 +32,9 @@ internal class Client {
 
 		Console.WriteLine(BitConverter.ToString(response).Replace("-", " "));
 	}
+
+
+	static
 
 
 	static byte[] BuildDnsQuery(string domain) {
