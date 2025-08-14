@@ -45,7 +45,7 @@ static const Cell HARD_COLORS[HARD_COLORS_COUNT] = {CELL_RED, CELL_ORANGE,
 
 static const size_t EASY_NEXT_BALLS_COUNT = 3;
 static const size_t MEDIUM_NEXT_BALLS_COUNT = 3;
-static const size_t HARD_NEXT_BALLS_COUNT = 5;
+static const size_t HARD_NEXT_BALLS_COUNT = 7;
 
 static const Point PATH_DIRECTIONS[PATH_DIRECTION_COUNT] = {POINT_UP,
    POINT_DOWN, POINT_LEFT, POINT_RIGHT
