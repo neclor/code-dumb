@@ -14,20 +14,34 @@
 
 \begin{itemize}
 \item \textbf{Input}:
-    Un tableau d'entiers $T$ de taille $N$,
-    $N \geq 0$
+    Un tableau d'entiers $T$ de taille $N$: \\
+    $ T = (T[0], T[1] \dots T[N - 1]) $ \\
+    $ \land $ \\
+    $ N \geq 0 $
 
 \item \textbf{Output}:
-    Un entier $k$ représentant la longueur du plus grand sous-tableau préfixe et suffixe
-    $0$ si aucun sous-tableau non trivial ne satisfait la condition
-
+    Un entier $k$ représentant la longueur maximale des sous-tableaux (préfixe et suffixe)
+    du tableau $T$. \\
+    $k < N \land \operatorname{pref\_equals\_suff}(T, N, k)$ \\
+    \\
+    Si de tels sous-tableaux n'existent pas, renvoyez 0.
 \end{itemize}
 
 
 \subsection{Découpe en sous-problèmes}
 
-Nous décomposons le problème en deux Sp:
-\begin{enumerate}
-\item Recherche du plus grand prefixe-suffics de longeur $k$ possible de $N-1$ à $1$
-\item Vérification que le préfixe et suffixe de longueur $k$ sont égaux
-\end{enumerate}
+\begin{itemize}
+\item \textbf{SP 1}: Énumération des longueurs possibles pour les préfixes et suffixes \\
+    Nous parcourons toutes les longueurs possibles $k$ (pour les préfixes et suffixes)
+    du tableau $T$ dans l'ordre décroissant de $N-1$ jusqu’à $1$.
+    Pour chaque longueur $k$, nous vérifions la correspondance en utilisant la méthode de comparaison (SP 2).
+    Dès que nous trouvons une longueur $k$ pour laquelle le préfixe et le suffixe correspondent,
+    nous la retournons. \\
+    Si aucune longueur ne convient, nous retournons 0.
+
+\item \textbf{SP 2}: Vérification de l’égalité entre préfixe et suffixe \\
+    Pour une longueur $k$ donnée,
+    nous vérifions si le préfixe et le suffixe de $T$ sont identiques.
+    Cette comparaison s’effectue élément par élément.
+
+\end{itemize}

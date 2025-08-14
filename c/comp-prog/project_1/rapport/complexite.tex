@@ -6,26 +6,22 @@
 \section{Complexité}\label{complexite}
 %%%%%%%%%%%%%%%%%%%%
 
-\textbf{Complexité:}
-
+\textbf{Complexité de \texttt{pref\_equal\_suff}}:
 \begin{itemize}
-    \item Complexité de la fonction \texttt{pref\_equal\_suff}:
-        \begin{itemize}
-            \item Dans le pire cas, la fonction effectue $k$ comparaisons
-            \item Dans cas maximal ($k = N-1$), la complexité est $\mathcal{O}(N)$
-        \end{itemize}
-
-    \item Complexité de la fonction \texttt{prefixe\_suffixe}:
-        \begin{itemize}
-            \item Dans le pire cas, itère sur toutes les valeurs de $k$ de $N-1$ à $1$
-            \item Appelle \texttt{pref\_equal\_suff} pour chaque $k$
-        \end{itemize}
-
+    \item Complexité exacte:\\
+        $ T_1(k) = 1 + (k+1) + k + k + 1 = 3k + 3$\\
+    \item Asymptotique:\\
+        $ T_1(k) \in \mathcal{O}(k) $
 \end{itemize}
 
-\bigskip
+\textbf{Complexité de \texttt{prefixe\_suffixe}}:
+\begin{itemize}
+    \item Complexité exacte:\\
+        $ T_2(N) = 1 + \sum_{k=N-1}^{1} [3 + T_1(k)] + 1 $\\
+        $    = 2 + 3 \sum_{k=N-1}^{1} [3k + 6]$\\
+        $    = 2 + 3(N-1)N \div 2 + 6(N - 1)$\\
+        $    = (3N^2 - 3N) \div 2 + 6N - 4$\\
+    \item Asymptotique:\\
+        $ T_2(N) \in \mathcal{O}(N^2) $
+\end{itemize}
 
-\textbf{Complexité totale:}
-    \begin{itemize}
-        \item $\sum_{k=1}^{N-1} \mathcal{O}(k) = \mathcal{O}(N^2)$
-    \end{itemize}

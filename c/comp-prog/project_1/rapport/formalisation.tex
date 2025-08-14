@@ -6,4 +6,13 @@
 \section{Formalisation du Problème}\label{formalisation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-$\operatorname{prefixe\_suffixe}(T, N) \equiv \max\{k \mid k \in 0 \dots N-1 \land \forall i \cdot (i \in 0 \dots k - 1 \Rightarrow T[i] = T[N-k+i])\}$
+
+\textbf{Notations clés}:\\
+    $ T[0 \dots k-1] $ — préfixe de la longueur $k$ du tableau $T$\\
+    $ T[N-k \dots N-1] $ — suffixe de la longueur $k$ du tableau $T$\\
+\\
+\textbf{Prédicat}:\\
+$ \operatorname{pref\_equals\_suff}(T, N, k) \equiv (0 < k < N) \land \forall i \in [0 \dots k - 1], T[i] = T[N - k + i]$\\
+\\
+\textbf{Fonction}:\\
+$ \operatorname{prefixe\_suffixe}(T, N) \equiv \max\{k \mid k \in [0 \dots N - 1], \operatorname{pref\_equals\_suff}(T, N, k)\} $ \\

@@ -9,16 +9,16 @@
 
 \subsection{SP1: Recherche du plus grand prefixe-suffixe:}
 \begin{itemize}
-    \item \textbf{Précondition}: $T$ pointer vers un tableau, $N \geq 0$
-    \item \textbf{Postcondition}: $T = T_0$
-    \item \textbf{Retour}: le plus grand $k \in [0, N-1]$ tel que $T[0..k-1] = T[N-k..N-1]$
+    \item \textbf{Précondition}: $T$ pointer vers un tableau de longueur $N \land N \geq 0$
+    \item \textbf{Postcondition}: $T = T_0 \land N = N_0$
+    \item \textbf{Retour}: $ \operatorname{prefixe\_suffixe}(T, N) $
 \end{itemize}
 
 
 
 \subsection{SP2: Vérification que le préfixe et sufixe de longueur $k$ sont égaux:}
 \begin{itemize}
-    \item \textbf{Précondition}: $T$ pointer vers un tableau, $0 < N, 0 < k < N$
-    \item \textbf{Postcondition}: $T = T_0$
-    \item \textbf{Retour}: $1$ si $T[0..k-1] = T[N-k..N-1]$ sinon $0$
+    \item \textbf{Précondition}: $T$ pointer vers un tableau de longueur $N \land 0 < N \land < k < N$
+    \item \textbf{Postcondition}: $T = T_0 \land N = N_0$
+    \item \textbf{Retour}: $ \operatorname{pref\_equals\_suff}(T, N, k) $
 \end{itemize}

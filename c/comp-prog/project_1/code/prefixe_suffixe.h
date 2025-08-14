@@ -1,8 +1,8 @@
 /**
  * \file prefixe_suffixe.h
  * \brief Header for calculating the length of the longest subarray at the prefix and suffix.
- * \author Pavlov Aleksandr, Alexandre Gendebien
- * \date 05.04.2025
+ * \author Pavlov Aleksandr
+ * \date 14.08.2025
  *
  * Implements p-compatibility between T1 and T2
 */
@@ -23,6 +23,6 @@
  *
  * @return: length of the longest subarray at the prefix and suffix
  */
-int prefixe_suffixe(int *T, const unsigned int N);
+int prefixe_suffixe(int *T, unsigned int N);
 
 #endif // _PREFIXE_SUFFIXE_H

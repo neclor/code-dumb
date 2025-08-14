@@ -12,19 +12,23 @@
 
 \subsection{SP1:}
 \textbf{Invariant formel:} \\
-    $0 < k < N$ \\
-    $\land$ \\
-    $T[0..k-1] \neq T[N-k..N-1]$ \\
+    $ T = T_0 \land N = N_0$ \\
+    $ \land$ \\
+    $ 0 < N $ \\
+    $ \land$ \\
+    $ 0 < k < N $ \\
+    $ \land $ \\
+    $ \neg pref\_equal\_suff(T, N, k) $
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.7\textwidth]{invariant_1.pdf}
+    \includegraphics[width=1\textwidth]{invariant-1.pdf}
     \caption{Invariant graphique SP1}
 \end{figure}
 
 \subsection{SP2:}
 \textbf{Invariant formel:} \\
-    $T = T_0 \land k = k_0$ \\
+    $ T = T_0 \land N = N_0 \land k = k_0$ \\
     $\land$ \\
     $0 \leq i < k$ \\
     $\land$ \\
@@ -32,7 +36,7 @@
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.7\textwidth]{invariant_2.pdf}
+    \includegraphics[width=1\textwidth]{invariant-2.pdf}
     \caption{Invariant graphique SP2}
 \end{figure}
 
