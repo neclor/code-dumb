@@ -1,11 +1,13 @@
 # Chargement des données iris
 data <- iris
 attach(data)
-
+data
 
 # Installer moments si nécessaire (pour aplatissement et assymétrie)
 if (!require(moments)) install.packages("moments")
 library(moments)
+
+
 
 cat("Population : 150 iris\n")
 cat("Variables : Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, Species\n")
@@ -46,10 +48,16 @@ for (var in c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width")) {
 # Effectifs cumulés et courbe cumulative pour Sepal.Length
 cat("\n--- Effectifs cumulés et courbe cumulative pour Sepal.Length ---\n")
 sepal_length_sorted <- sort(Sepal.Length)
+
 effectifs_cumules <- cumsum(table(sepal_length_sorted))
+
 plot(names(effectifs_cumules), effectifs_cumules, type="s", main="Effectifs cumulés de Sepal.Length", xlab="Valeur", ylab="Effectif cumulé")
+
 freq_cumulee <- cumsum(table(sepal_length_sorted)) / length(sepal_length_sorted)
+
 plot(names(freq_cumulee), freq_cumulee, type="s", main="Fréquence cumulée de Sepal.Length", xlab="Valeur", ylab="Fréquence cumulée")
+
+
 
 # Groupement des données continues, polygone, ogive
 breaks <- pretty(Sepal.Length, n=5)
@@ -57,13 +65,21 @@ groups <- cut(Sepal.Length, breaks=breaks, include.lowest=TRUE, right=FALSE)
 table_groups <- table(groups)
 hist(Sepal.Length, breaks=breaks, main="Histogramme groupé de Sepal.Length", xlab="Classe")
 
+
 # Ogive des effectifs cumulés (courbe cumulative) - CORRECTION
 effectifs_cumules <- c(0, cumsum(table_groups))
 plot(breaks, effectifs_cumules, type="s", col="blue", main="Ogive des effectifs cumulés",
      xlab="Borne de classe", ylab="Effectif cumulé")
 
+
+
+
 # Polygone des effectifs (reste inchangé)
 plot(breaks[-length(breaks)], table_groups, type="b", main="Polygone des effectifs", xlab="Classe", ylab="Effectif")
+
+
+
+
 
 # Paramètres de position, dispersion, forme
 for (var in c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width")) {
@@ -91,6 +107,13 @@ for (var in c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width")) {
   
 }
 
+
+
+
+
+
+
+
 # Statistiques descriptives par espèce
 cat("\n--- Statistiques descriptives par espèce ---\n")
 for (var in c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width")) {
@@ -107,21 +130,42 @@ hist_by_species <- function(var) {
 }
 hist_by_species("Sepal.Length")
 
+
+
+
+
+
+
+
+
 # Tableaux croisés pour variables quantitatives discrétisées
 cat("\n--- Tableau croisé : Sepal.Length (en classes) x Petal.Length (en classes) ---\n")
 sepal_classes <- cut(data$Sepal.Length, breaks=4)
 petal_classes <- cut(data$Petal.Length, breaks=4)
 print(table(sepal_classes, petal_classes))
 
+
+
+
+
 # Tableau de contingence (qualitative x qualitative)
 cat("\n--- Tableau de contingence Species x groupes de Sepal.Length ---\n")
 print(table(Species, groups))
+
+
+
+
+
+
 
 # Distributions marginales et conditionnelles
 cat("\n--- Distribution marginale de Sepal.Length ---\n")
 print(table(Sepal.Length))
 cat("\n--- Résumés de Sepal.Length selon Species ---\n")
 print(tapply(Sepal.Length, Species, summary))
+
+
+
 
 # Covariance et corrélation
 cat("\n--- Matrice de corrélation entre variables quantitatives ---\n")
@@ -131,6 +175,10 @@ cat("\n--- Matrice de covariance ---\n")
 cov_matrix <- cov(data[,1:4])
 print(cov_matrix)
 pairs(data[,1:4], main="Nuage de points des variables quantitatives")
+
+
+
+
 
 # Régression linéaire simple et analyse des résidus
 cat("\n--- Régression linéaire Sepal.Length ~ Petal.Length ---\n")
@@ -142,13 +190,48 @@ res <- resid(lm_model)
 plot(res, main="Résidus de la régression", ylab="Résidu", xlab="Observation")
 abline(h=0, lty=2)
 
+
+
+
+
 # Robustesse : valeurs extrêmes
 cat("\n--- Valeurs extrêmes (outliers) pour Sepal.Length ---\n")
 print(boxplot.stats(Sepal.Length)$out)
+
+
+
+
 
 # Moyenne de Sepal.Length par espèce
 cat("\n--- Moyenne de Sepal.Length par espèce ---\n")
 print(aggregate(Sepal.Length ~ Species, data=data, FUN=mean))
 
-detach(data)
+
+# Создаем таблицу для построения
+hist_data <- data.frame(
+  Class = levels(class_intervals),
+  Frequency = as.vector(freq_table),
+  Freq_Relative = as.vector(freq_table) / n
+)
+hist_data$Width <- c(1.5, 0.3, 0.2, 0.2, 0.2, 0.6, 0.5) # Ширины классов
+hist_data$Height <- hist_data$Freq_Relative / hist_data$Width # Высота = Отн.Частота / Ширина
+
+# Создаем таблицу для построения
+hist_data <- data.frame(
+  Class = levels(class_intervals),
+  Frequency = as.vector(freq_table),
+  Freq_Relative = as.vector(freq_table) / n
+)
+hist_data$Width <- c(1.5, 0.3, 0.2, 0.2, 0.2, 0.6, 0.5) # Ширины классов
+hist_data$Height <- hist_data$Freq_Relative / hist_data$Width # Высота = Отн.Частота / Ширина
+
+
+
+
+
+
+
+
+
+
 
