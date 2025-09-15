@@ -1,0 +1,15 @@
+C:\Git\code-dumb\cs\DnsTunnel\Server\bin\Debug\net9.0\Server.exe
+C:\Git\code-dumb\cs\DnsTunnel\Server\bin\Debug\net9.0\Server.deps.json
+C:\Git\code-dumb\cs\DnsTunnel\Server\bin\Debug\net9.0\Server.runtimeconfig.json
+C:\Git\code-dumb\cs\DnsTunnel\Server\bin\Debug\net9.0\Server.dll
+C:\Git\code-dumb\cs\DnsTunnel\Server\bin\Debug\net9.0\Server.pdb
+C:\Git\code-dumb\cs\DnsTunnel\Server\obj\Debug\net9.0\Server.GeneratedMSBuildEditorConfig.editorconfig
+C:\Git\code-dumb\cs\DnsTunnel\Server\obj\Debug\net9.0\Server.AssemblyInfoInputs.cache
+C:\Git\code-dumb\cs\DnsTunnel\Server\obj\Debug\net9.0\Server.AssemblyInfo.cs
+C:\Git\code-dumb\cs\DnsTunnel\Server\obj\Debug\net9.0\Server.csproj.CoreCompileInputs.cache
+C:\Git\code-dumb\cs\DnsTunnel\Server\obj\Debug\net9.0\Server.sourcelink.json
+C:\Git\code-dumb\cs\DnsTunnel\Server\obj\Debug\net9.0\Server.dll
+C:\Git\code-dumb\cs\DnsTunnel\Server\obj\Debug\net9.0\refint\Server.dll
+C:\Git\code-dumb\cs\DnsTunnel\Server\obj\Debug\net9.0\Server.pdb
+C:\Git\code-dumb\cs\DnsTunnel\Server\obj\Debug\net9.0\Server.genruntimeconfig.cache
+C:\Git\code-dumb\cs\DnsTunnel\Server\obj\Debug\net9.0\ref\Server.dll
