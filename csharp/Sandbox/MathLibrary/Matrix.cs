@@ -36,14 +36,16 @@ public class Matrix<T> : IEquatable<Matrix<T>>, ICloneable where T : INumber<T> 
 		Rows = other.Rows;
 		Columns = other.Columns;
 		_data = (T[,])other._data.Clone();
-	}
 
+	}
 
 	public T this[int row, int column] {
 		get {
-			if (row < 0 || row >= Rows) throw new ArgumentOutOfRangeException(nameof(row), "Row index out of range.");
-			if (column < 0 || column >= Columns) throw new ArgumentOutOfRangeException(nameof(column), "Column index out of range.");
-			return _data[row, column];
+			return row < 0 || row >= Rows
+				? throw new ArgumentOutOfRangeException(nameof(row), "Row index out of range.")
+				: column < 0 || column >= Columns
+				? throw new ArgumentOutOfRangeException(nameof(column), "Column index out of range.")
+				: _data[row, column];
 		}
 		set {
 			if (row < 0 || row >= Rows) throw new ArgumentOutOfRangeException(nameof(row), "Row index out of range.");
@@ -52,13 +54,9 @@ public class Matrix<T> : IEquatable<Matrix<T>>, ICloneable where T : INumber<T> 
 		}
 	}
 
-
-
-
-
 	public Matrix<T> SetValue(int row, int column, T value) {
 		CheckBounds(row, column);
-		var newMatrix = (Matrix<T>)Clone();
+		Matrix<T> newMatrix = (Matrix<T>)Clone();
 		newMatrix._data[row, column] = value;
 		return newMatrix;
 	}
@@ -67,6 +65,10 @@ public class Matrix<T> : IEquatable<Matrix<T>>, ICloneable where T : INumber<T> 
 
 
 	public bool Equals(Matrix<T>? other) {
+
+
+
+
 		if (other is null || Rows != other.Rows || Columns != other.Columns) return false;
 
 		for (int y = 0; y < Rows; y++) {
@@ -74,12 +76,26 @@ public class Matrix<T> : IEquatable<Matrix<T>>, ICloneable where T : INumber<T> 
 				if (_data[y, x] != other._data[y, x]) return false;
 			}
 		}
+
+
+
+
+
 		return true;
 	}
 
 	public object Clone() {
+
 		return new Matrix<T>(this);
+
 	}
+
+
+
+
+
+
+
 
 
 	private void CheckBounds(int row, int column) {

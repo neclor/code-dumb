@@ -10,11 +10,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 
-    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-    <EnableNETAnalyzers>true</EnableNETAnalyzers>
-    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
+	  <EnableNETAnalyzers>true</EnableNETAnalyzers>
+	  <AnalysisLevel>preview</AnalysisLevel>
+	  <AnalysisMode>All</AnalysisMode>
+	  <AnalysisModeStyle>All</AnalysisModeStyle>
+	  <CodeAnalysisTreatWarningsAsErrors>false</CodeAnalysisTreatWarningsAsErrors>
 
-    <RootNamespace>MathLibrary</RootNamespace>
+	  <RootNamespace>MathLibrary</RootNamespace>
   </PropertyGroup>
 
 </Project>
