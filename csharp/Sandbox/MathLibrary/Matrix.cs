@@ -1,108 +1,251 @@
+using System.Data.Common;
 using System.Numerics;
+using System.Text;
 
 
 namespace MathLibrary;
 
 
-#pragma warning disable CA1814
-public class Matrix<T> : IEquatable<Matrix<T>>, ICloneable where T : INumber<T> {
+public class Matrix<T> : IEquatable<Matrix<T>> where T : INumber<T> { // IEnumerable<T>,
 
-	private readonly T[,] _data;
+	private readonly T[] _data;
 
+	public int Length => _data.Length;
 	public int Rows { get; }
 	public int Columns { get; }
+	public bool IsSquare => Rows == Columns;
 
-	public Matrix(int rows, int columns) {
+	public T this[int row, int column] {
+		get => GetValue(row, column);
+		set => SetValue(row, column, value);
+	}
+
+	public Matrix(int rows = 3, int columns = 3, T[]? values = default) {
 		if (rows <= 0) throw new ArgumentOutOfRangeException(nameof(rows), "Number of rows must be positive.");
 		if (columns <= 0) throw new ArgumentOutOfRangeException(nameof(columns), "Number of columns must be positive.");
+		if (values is not null && rows * columns != values.Length) throw new ArgumentException("Size not matching", nameof(values));
 
 		Rows = rows;
 		Columns = columns;
-		_data = new T[rows, columns];
+		_data = (T[])(values?.Clone() ?? new T[rows * columns]);
 	}
 
-	public Matrix(T[,] initialValues) {
-		ArgumentNullException.ThrowIfNull(initialValues);
-		if (initialValues.GetLength(0) == 0 || initialValues.GetLength(1) == 0) throw new ArgumentException("Initial values array must have positive dimensions.", nameof(initialValues));
+	public static Matrix<T> operator +(Matrix<T> matrix) => matrix?.Clone() ?? throw new ArgumentNullException(nameof(matrix));
+	public static Matrix<T> operator -(Matrix<T> matrix) => matrix?.Negate() ?? throw new ArgumentNullException(nameof(matrix));
+	public static Matrix<T> operator +(Matrix<T> a, Matrix<T> b) => a?.Add(b) ?? throw new ArgumentNullException(nameof(a));
+	public static Matrix<T> operator -(Matrix<T> a, Matrix<T> b) => a?.Subtract(b) ?? throw new ArgumentNullException(nameof(a));
+	public static Matrix<T> operator *(Matrix<T> matrix, T value) => matrix?.Multiply(value) ?? throw new ArgumentNullException(nameof(matrix));
+	public static Matrix<T> operator *(T value, Matrix<T> matrix) => matrix * value;
+	public static Matrix<T> operator *(Matrix<T> a, Matrix<T> b) => a?.Multiply(b) ?? throw new ArgumentNullException(nameof(a));
+	public static Matrix<T> operator /(Matrix<T> matrix, T value) => matrix?.Divide(value) ?? throw new ArgumentNullException(nameof(matrix));
+	public static bool operator ==(Matrix<T> a, Matrix<T> b) => Equals(a, b);
+	public static bool operator !=(Matrix<T> a, Matrix<T> b) => !(a == b);
 
-		Rows = initialValues.GetLength(0);
-		Columns = initialValues.GetLength(1);
-		_data = (T[,])initialValues.Clone();
-	}
+#pragma warning disable CA1000
+	public static Matrix<T> Identity(int size) {
+		if (size <= 0) throw new ArgumentException("Size must be positive");
 
-	public Matrix(Matrix<T> other) {
-		ArgumentNullException.ThrowIfNull(other);
-
-		Rows = other.Rows;
-		Columns = other.Columns;
-		_data = (T[,])other._data.Clone();
-
-	}
-
-	public T this[int row, int column] {
-		get {
-			return row < 0 || row >= Rows
-				? throw new ArgumentOutOfRangeException(nameof(row), "Row index out of range.")
-				: column < 0 || column >= Columns
-				? throw new ArgumentOutOfRangeException(nameof(column), "Column index out of range.")
-				: _data[row, column];
+		Matrix<T> result = new(size, size);
+		for (int i = 0; i < size; i++) {
+			result._data[result.Index(i, i)] = T.One;
 		}
-		set {
-			if (row < 0 || row >= Rows) throw new ArgumentOutOfRangeException(nameof(row), "Row index out of range.");
-			if (column < 0 || column >= Columns) throw new ArgumentOutOfRangeException(nameof(column), "Column index out of range.");
-			_data[row, column] = value;
-		}
+
+		return result;
+	}
+#pragma warning restore CA1000
+
+	public Matrix<T> Clone() => new(Rows, Columns, _data);
+
+	public T GetValue(int row, int column) {
+		CheckBounds(row, column);
+		return _data[Index(row, column)];
 	}
 
 	public Matrix<T> SetValue(int row, int column, T value) {
 		CheckBounds(row, column);
-		Matrix<T> newMatrix = (Matrix<T>)Clone();
-		newMatrix._data[row, column] = value;
-		return newMatrix;
+		_data[Index(row, column)] = value;
+		return this;
 	}
 
+	public Matrix<T> Plus() => Clone();
 
+	public Matrix<T> Negate() => Multiply(-T.One);
 
+	public Matrix<T> Add(Matrix<T> other) {
+		ArgumentNullException.ThrowIfNull(other);
+		if (Rows != other.Rows || Columns != other.Columns) throw new ArgumentException("The matrix dimensions do not match", nameof(other));
 
-	public bool Equals(Matrix<T>? other) {
+		Matrix<T> result = Clone();
+		for (int i = 0; i < Length; i++) {
+			result._data[i] += other._data[i];
+		}
 
+		return result;
+	}
 
+	public Matrix<T> Subtract(Matrix<T> other) {
+		ArgumentNullException.ThrowIfNull(other);
+		if (Rows != other.Rows || Columns != other.Columns) throw new ArgumentException("The matrix dimensions do not match", nameof(other));
 
+		Matrix<T> result = Clone();
+		for (int i = 0; i < Length; i++) {
+			result._data[i] -= other._data[i];
+		}
 
-		if (other is null || Rows != other.Rows || Columns != other.Columns) return false;
+		return result;
+	}
 
-		for (int y = 0; y < Rows; y++) {
-			for (int x = 0; x < Columns; x++) {
-				if (_data[y, x] != other._data[y, x]) return false;
+	public Matrix<T> Multiply(T value) {
+		Matrix<T> result = Clone();
+		for (int i = 0; i < Length; i++) {
+			result._data[i] *= value;
+		}
+
+		return result;
+	}
+
+	public Matrix<T> Multiply(Matrix<T> other) {
+		ArgumentNullException.ThrowIfNull(other);
+		if (Columns != other.Rows) throw new ArgumentException("The matrix dimensions do not match", nameof(other));
+
+		Matrix<T> result = new(Rows, other.Columns);
+		for (int rowA = 0; rowA < Rows; rowA++) {
+			for (int columnA = 0; columnA < Columns; columnA++) {
+				T valueA = _data[Index(rowA, columnA)];
+				for (int columnB = 0; columnB < other.Columns; columnB++) {
+					result._data[result.Index(rowA, columnB)] += valueA * other._data[other.Index(columnA, columnB)];
+				}
 			}
 		}
 
+		return result;
+	}
 
+	public Matrix<T> Divide(T value) {
+		Matrix<T> result = Clone();
+		for (int i = 0; i < Length; i++) {
+			result._data[i] /= value;
+		}
 
+		return result;
+	}
 
+	public Matrix<T> Power(int value) {
+		if (!IsSquare) throw new ArgumentException("Matrix should be square");
+		if (value < 0) throw new ArgumentOutOfRangeException(nameof(value), "Value must be positive.");
 
+		if (value == 0) return Identity(Rows);
+
+		Matrix<T> result = Clone();
+		for (int i = 1; i < value; i++) {
+			result = result.Multiply(this);
+		}
+
+		return result;
+	}
+
+	public Matrix<T> SwapRows(int row1, int row2) {
+		CheckBoundsRow(row1);
+		CheckBoundsRow(row2);
+		if (row1 == row2) return Clone();
+
+		Matrix<T> result = Clone();
+		for (int column = 0; column < Columns; column++) {
+			(result._data[Index(row1, column)], result._data[Index(row2, column)]) = (result._data[Index(row2, column)], result._data[Index(row1, column)]);
+		}
+
+		return result;
+	}
+
+	public Matrix<T> MultiplyRow(int row, T value) {
+		CheckBoundsRow(row);
+
+		Matrix<T> result = Clone();
+		for (int i = Index(row, 0); i < Index(row, Columns); i++) {
+			result._data[i] *= value;
+		}
+
+		return result;
+	}
+
+	public Matrix<T> DivideRow(int row, T value) {
+		CheckBoundsRow(row);
+
+		Matrix<T> result = Clone();
+		for (int i = Index(row, 0); i < Index(row, Columns); i++) {
+			result._data[i] /= value;
+		}
+
+		return result;
+	}
+
+	public Matrix<T> AddMultipliedRow(int row1, int row2, T factor) {
+		CheckBoundsRow(row1);
+		CheckBoundsRow(row2);
+
+		Matrix<T> result = Clone();
+		for (int column = 0; column < Columns; column++) {
+			result._data[Index(row1, column)] += result._data[Index(row2, column)] * factor;
+		}
+		return result;
+	}
+
+	public bool Equals(Matrix<T>? other) {
+		if (other is null || Rows != other.Rows || Columns != other.Columns) return false;
+		for (int row = 0; row < Rows; row++) {
+			for (int column = 0; column < Columns; column++) {
+				if (_data[Index(row, column)] != other._data[other.Index(row, column)]) return false;
+			}
+		}
 		return true;
 	}
 
-	public object Clone() {
+	public override bool Equals(object? obj) => Equals(obj as Matrix<T>);
 
-		return new Matrix<T>(this);
+	public override int GetHashCode() {
+		HashCode hash = new();
 
+		hash.Add(Rows);
+		hash.Add(Columns);
+
+		foreach (T value in _data) {
+			hash.Add(value);
+		}
+
+		return hash.ToHashCode();
 	}
 
+	public override string ToString() {
+		StringBuilder stringBuilder = new();
 
+		for (int row = 0; row < Rows; row++) {
+			stringBuilder.Append("[ ");
 
+			for (int column = 0; column < Columns; column++) {
+				stringBuilder.Append(_data[Index(row, column)]);
+				if (column < Columns - 1) stringBuilder.Append(", ");
+			}
 
+			stringBuilder.AppendLine(" ]");
+		}
 
+		return stringBuilder.ToString();
+	}
 
+	private static int Index(int row, int column, int columns) => row * columns + column;
 
-
+	private int Index(int row, int column) => Index(row, column, Columns);
 
 	private void CheckBounds(int row, int column) {
-		if (row < 0 || row >= Rows) throw new ArgumentOutOfRangeException(nameof(row), "Row index out of range.");
-		if (column < 0 || column >= Columns) throw new ArgumentOutOfRangeException(nameof(column), "Column index out of range.");
+		CheckBoundsRow(row);
+		CheckBoundsColumn(column);
 	}
 
+	private void CheckBoundsRow(int row) {
+		if (row < 0 || row >= Rows) throw new ArgumentOutOfRangeException(nameof(row), "Row index out of range.");
+	}
 
+	private void CheckBoundsColumn(int column) {
+		if (column < 0 || column >= Columns) throw new ArgumentOutOfRangeException(nameof(column), "Column index out of range.");
+	}
 }
-#pragma warning restore CA1814
