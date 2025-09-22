@@ -15,6 +15,8 @@ public static class LinearSolver {
 
 				if (matrix[row, column] == T.Zero) continue;
 
+				// Console.WriteLine(matrix);
+
 				if (!nonZeroRowExist) {
 					nonZeroRowExist = true;
 					matrix = matrix.DivideRow(row, matrix[row, column]).SwapRows(column, row);

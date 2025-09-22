@@ -19,4 +19,8 @@
     <RootNamespace>MathLibrary</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Polynome.cs" />
+  </ItemGroup>
+
 </Project>

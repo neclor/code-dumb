@@ -61,10 +61,9 @@ public class Matrix<T> : IEquatable<Matrix<T>> where T : INumber<T> { // IEnumer
 		return _data[Index(row, column)];
 	}
 
-	public Matrix<T> SetValue(int row, int column, T value) {
+	public void SetValue(int row, int column, T value) {
 		CheckBounds(row, column);
 		_data[Index(row, column)] = value;
-		return this;
 	}
 
 	public Matrix<T> Plus() => Clone();
@@ -188,6 +187,78 @@ public class Matrix<T> : IEquatable<Matrix<T>> where T : INumber<T> { // IEnumer
 			result._data[Index(row1, column)] += result._data[Index(row2, column)] * factor;
 		}
 		return result;
+	}
+
+	public Matrix<T> Transpose() {
+		Matrix<T> result = new(Columns, Rows);
+		for (int row = 0; row < Rows; row++) {
+			for (int column = 0; column < Columns; column++) {
+				result._data[result.Index(column, row)] = _data[Index(row, column)];
+			}
+		}
+		return result;
+	}
+
+	public T Determinant() {
+		if (!IsSquare) throw new ArgumentException("Matrix should be square");
+
+		T sum = T.Zero;
+		for (int column = 0; column < Columns; column++) {
+			T diagonalProduct = T.One;
+			for (int row = 0; row < Rows; row++) {
+				diagonalProduct *= _data[Index(row, (column + row) % Columns)];
+			}
+			sum += diagonalProduct;
+		}
+
+		for (int column = 0; column < Columns; column++) {
+			T diagonalProduct = T.One;
+			for (int row = 0; row < Rows; row++) {
+				diagonalProduct *= _data[Index(Rows - (row + 1), (column + row) % Columns)];
+			}
+			sum -= diagonalProduct;
+		}
+
+		return sum;
+	}
+
+	public int Rang() {
+		// TODO implement
+		return 0;
+	}
+
+	public Matrix<T> Inverse() {
+		if (!IsSquare) throw new ArgumentException("Matrix should be square");
+		if (Determinant() == T.Zero) throw new ArgumentException("Matrix is ​​not invertible");
+
+		Matrix<T> result = Identity(Rows);
+		for (int column = 0; column < Columns - 1; column++) {
+
+			bool nonZeroRowExist = false;
+			for (int row = column; row < matrix.Rows; row++) {
+
+				if (matrix[row, column] == T.Zero) continue;
+
+				// Console.WriteLine(matrix);
+
+				if (!nonZeroRowExist) {
+					nonZeroRowExist = true;
+					matrix = matrix.DivideRow(row, matrix[row, column]).SwapRows(column, row);
+					continue;
+				}
+
+				matrix = matrix.AddMultipliedRow(row, column, -matrix[row, column]);
+			}
+		}
+
+		for (int column = matrix.Columns - 2; column > 0; column--) {
+			for (int row = 0; row < column; row++) {
+				matrix = matrix.AddMultipliedRow(row, column, -matrix[row, column]);
+			}
+		}
+
+
+		return this;
 	}
 
 	public bool Equals(Matrix<T>? other) {
