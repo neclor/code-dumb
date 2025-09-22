@@ -4,7 +4,6 @@ namespace MathLibrary.Graph;
 public class Vertex(string name = "Untitled") {
 
 	public string Name { get; set; } = name ?? throw new ArgumentNullException(nameof(name));
-	public Graph
 
 	internal readonly List<Edge> _edges = [];
 

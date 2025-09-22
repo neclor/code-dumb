@@ -231,34 +231,37 @@ public class Matrix<T> : IEquatable<Matrix<T>> where T : INumber<T> { // IEnumer
 		if (!IsSquare) throw new ArgumentException("Matrix should be square");
 		if (Determinant() == T.Zero) throw new ArgumentException("Matrix is ​​not invertible");
 
+		Matrix<T> matrix = Clone();
 		Matrix<T> result = Identity(Rows);
+
 		for (int column = 0; column < Columns - 1; column++) {
 
 			bool nonZeroRowExist = false;
-			for (int row = column; row < matrix.Rows; row++) {
+			for (int row = column; row < Rows; row++) {
 
-				if (matrix[row, column] == T.Zero) continue;
-
-				// Console.WriteLine(matrix);
-
+				T value = matrix._data[Index(row, column)];
+				if (value == T.Zero) continue;
 				if (!nonZeroRowExist) {
 					nonZeroRowExist = true;
-					matrix = matrix.DivideRow(row, matrix[row, column]).SwapRows(column, row);
+					matrix = matrix.DivideRow(row, value).SwapRows(column, row);
+					result = result.DivideRow(row, value).SwapRows(column, row);
 					continue;
 				}
 
-				matrix = matrix.AddMultipliedRow(row, column, -matrix[row, column]);
+				matrix = matrix.AddMultipliedRow(row, column, -value);
+				result = result.AddMultipliedRow(row, column, -value);
 			}
 		}
 
-		for (int column = matrix.Columns - 2; column > 0; column--) {
+		for (int column = matrix.Columns - 1; column > 0; column--) {
 			for (int row = 0; row < column; row++) {
-				matrix = matrix.AddMultipliedRow(row, column, -matrix[row, column]);
+				T value = matrix._data[Index(row, column)];
+				matrix = matrix.AddMultipliedRow(row, column, -value);
+				result = result.AddMultipliedRow(row, column, -value);
 			}
 		}
 
-
-		return this;
+		return result;
 	}
 
 	public bool Equals(Matrix<T>? other) {

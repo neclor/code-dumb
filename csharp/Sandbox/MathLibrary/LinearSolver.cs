@@ -13,17 +13,18 @@ public static class LinearSolver {
 			bool nonZeroRowExist = false;
 			for (int row = column; row < matrix.Rows; row++) {
 
-				if (matrix[row, column] == T.Zero) continue;
+				T value = matrix[row, column];
+				if (value == T.Zero) continue;
 
 				// Console.WriteLine(matrix);
 
 				if (!nonZeroRowExist) {
 					nonZeroRowExist = true;
-					matrix = matrix.DivideRow(row, matrix[row, column]).SwapRows(column, row);
+					matrix = matrix.DivideRow(row, value).SwapRows(column, row);
 					continue;
 				}
 
-				matrix = matrix.AddMultipliedRow(row, column, -matrix[row, column]);
+				matrix = matrix.AddMultipliedRow(row, column, -value);
 			}
 		}
 
