@@ -2,6 +2,7 @@
 
 namespace MathLibrary.Graph;
 
+
 public class Graph(Vertex[]? vertices = default, Edge[]? edges = default) {
 
 	private readonly List<Vertex> _vertices = vertices?.ToList() ?? [];
