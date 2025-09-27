@@ -236,9 +236,9 @@ public class Matrix<T> : IEquatable<Matrix<T>> where T : INumber<T> { // IEnumer
 		for (int column = 0; column < Columns - 1; column++) {
 
 			int maxRow = column;
-			T maxValue = T.Abs(u._data[Index(column, column)]);
+			T maxValue = T.Abs(matrix._data[Index(column, column)]);
 			for (int row = column + 1; row < Rows; row++) {
-				T absValue = T.Abs(u._data[Index(row, column)]);
+				T absValue = T.Abs(matrix._data[Index(row, column)]);
 				if (absValue > maxValue) {
 					maxRow = row;
 					maxValue = absValue;
@@ -355,10 +355,12 @@ public class Matrix<T> : IEquatable<Matrix<T>> where T : INumber<T> { // IEnumer
 	}
 
 	private void CheckBoundsRow(int row) {
-		if (row < 0 || row >= Rows) throw new ArgumentOutOfRangeException(nameof(row), "Row index out of range.");
+		ArgumentOutOfRangeException.ThrowIfNegative(row, nameof(row));
+		ArgumentOutOfRangeException.ThrowIfGreaterThan(row, Rows, nameof(row));
 	}
 
 	private void CheckBoundsColumn(int column) {
-		if (column < 0 || column >= Columns) throw new ArgumentOutOfRangeException(nameof(column), "Column index out of range.");
+		ArgumentOutOfRangeException.ThrowIfNegative(column, nameof(column));
+		ArgumentOutOfRangeException.ThrowIfGreaterThan(column, Columns, nameof(column));
 	}
 }
