@@ -6,7 +6,7 @@ namespace Test;
 
 internal class Program {
 
-	public static void Main() {
+	private static void Main() {
 		DeterminantTest();
 		InverseTest();
 		PLUDecompositionTest();
