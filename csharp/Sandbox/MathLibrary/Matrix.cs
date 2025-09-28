@@ -233,21 +233,21 @@ public class Matrix<T> : IEquatable<Matrix<T>> where T : INumber<T> { // IEnumer
 		Matrix<T> matrix = Clone();
 		Matrix<T> result = Identity(Rows);
 
-		for (int column = 0; column < Columns - 1; column++) {
+		for (int column = 0; column < Columns; column++) {
 
 			int maxRow = column;
-			T maxValue = T.Abs(matrix._data[Index(column, column)]);
+			T pivotValue = matrix._data[Index(column, column)];
 			for (int row = column + 1; row < Rows; row++) {
-				T absValue = T.Abs(matrix._data[Index(row, column)]);
-				if (absValue > maxValue) {
+				T value = matrix._data[Index(row, column)];
+				if (T.Abs(value) > T.Abs(pivotValue)) {
 					maxRow = row;
-					maxValue = absValue;
+					pivotValue = value;
 				}
 			}
-			matrix = matrix.DivideRow(maxRow, maxValue).SwapRows(column, maxRow);
-			result = result.DivideRow(maxRow, maxValue).SwapRows(column, maxRow);
+			matrix = matrix.DivideRow(maxRow, pivotValue).SwapRows(column, maxRow);
+			result = result.DivideRow(maxRow, pivotValue).SwapRows(column, maxRow);
 
-			for (int row = column; row < Rows; row++) {
+			for (int row = column + 1; row < Rows; row++) {
 				T value = matrix._data[Index(row, column)];
 
 				matrix = matrix.AddMultipliedRow(row, column, -value);
@@ -266,7 +266,6 @@ public class Matrix<T> : IEquatable<Matrix<T>> where T : INumber<T> { // IEnumer
 		return result;
 	}
 
-
 	public (Matrix<T> P, Matrix<T> L, Matrix<T> U) PLUDecomposition() {
 		if (!IsSquare) throw new ArgumentException("Matrix should be square");
 		if (Determinant() == T.Zero) throw new ArgumentException("Matrix is ​​not invertible");
@@ -278,19 +277,17 @@ public class Matrix<T> : IEquatable<Matrix<T>> where T : INumber<T> { // IEnumer
 		for (int column = 0; column < Columns - 1; column++) {
 
 			int maxRow = column;
-			T maxValue = T.Abs(u._data[Index(column, column)]);
+			T pivotValue = u._data[Index(column, column)];
 			for (int row = column + 1; row < Rows; row++) {
-				T absValue = T.Abs(u._data[Index(row, column)]);
-				if (absValue > maxValue) {
+				T value = u._data[Index(row, column)];
+				if (T.Abs(value) > T.Abs(pivotValue)) {
 					maxRow = row;
-					maxValue = absValue;
+					pivotValue = value;
 				}
 			}
 			p = p.SwapRows(column, maxRow);
-			l = l.SwapRows(column, maxRow);
 			u = u.SwapRows(column, maxRow);
 
-			T pivotValue = u._data[Index(column, column)];
 			for (int row = column + 1; row < Rows; row++) {
 				T value = u._data[Index(row, column)];
 				T factor = value / pivotValue;
@@ -301,7 +298,6 @@ public class Matrix<T> : IEquatable<Matrix<T>> where T : INumber<T> { // IEnumer
 		}
 		return (p, l, u);
 	}
-
 
 	public bool Equals(Matrix<T>? other) {
 		if (other is null || Rows != other.Rows || Columns != other.Columns) return false;

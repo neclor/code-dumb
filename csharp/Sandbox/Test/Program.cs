@@ -9,6 +9,7 @@ internal class Program {
 	public static void Main() {
 		DeterminantTest();
 		InverseTest();
+		PLUDecompositionTest();
 		LinearSolverTest();
 	}
 
@@ -26,16 +27,37 @@ internal class Program {
 	}
 
 	private static void InverseTest() {
-		Matrix<float> matrix = new(4, 4, [
-				2, 3, 2, 2,
-				-1, -1, 0, -1,
-				-2, -2, -2, -1,
-				3, 2, 2, 2
+		Matrix<float> matrix = new(3, 3, [
+				1, 2, 3,
+				0, 1, 4,
+				5, 6, 0,
 			]
 		);
 		Console.WriteLine("Inverse:");
 		Console.WriteLine(matrix);
 		Console.WriteLine(matrix.Inverse());
+	}
+
+	private static void PLUDecompositionTest() {
+		Matrix<float> matrix = new(3, 3, [
+				2, 3, 1,
+				4, 7, 7,
+				6, 18, 22,
+			]
+		);
+
+		(Matrix<float> p, Matrix<float> l, Matrix<float> u) = matrix.PLUDecomposition();
+
+		Console.WriteLine("PLU Decomposition:");
+		Console.WriteLine(matrix);
+		Console.WriteLine("PLU Product:");
+		Console.WriteLine(p * (l * u));
+		Console.WriteLine("P :");
+		Console.WriteLine(p);
+		Console.WriteLine("L :");
+		Console.WriteLine(l);
+		Console.WriteLine("U :");
+		Console.WriteLine(u);
 	}
 
 	private static void LinearSolverTest() {
