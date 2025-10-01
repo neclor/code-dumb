@@ -7,8 +7,8 @@ namespace Test;
 internal class Program {
 
 	private static void Main() {
-		DeterminantTest();
-		InverseTest();
+		//DeterminantTest();
+		//InverseTest();
 		PLUDecompositionTest();
 		LinearSolverTest();
 	}
@@ -39,10 +39,11 @@ internal class Program {
 	}
 
 	private static void PLUDecompositionTest() {
-		Matrix<float> matrix = new(3, 3, [
-				2, 3, 1,
-				4, 7, 7,
-				6, 18, 22,
+		Matrix<float> matrix = new(4, 4, [
+				1, 2, 0, 1,
+				1, 2, 1, 0,
+				0, 1, 0, 1,
+				1, 0, 0, 1
 			]
 		);
 
@@ -51,7 +52,7 @@ internal class Program {
 		Console.WriteLine("PLU Decomposition:");
 		Console.WriteLine(matrix);
 		Console.WriteLine("PLU Product:");
-		Console.WriteLine(p * (l * u));
+		Console.WriteLine(p.Transpose() * l * u);
 		Console.WriteLine("P :");
 		Console.WriteLine(p);
 		Console.WriteLine("L :");

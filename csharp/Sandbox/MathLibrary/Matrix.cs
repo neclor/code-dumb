@@ -155,6 +155,36 @@ public class Matrix<T> : IEquatable<Matrix<T>> where T : INumber<T> { // IEnumer
 		return result;
 	}
 
+	public Matrix<T> RemoveRow(int row) {
+		if (Rows < 2) throw new InvalidOperationException("Matrix must have at least two row");
+		CheckBoundsRow(row);
+
+		Matrix<T> result = new(Rows - 1, Columns);
+		for (int r = 0; r < Rows; r++) {
+			if (r == row) continue;
+			for (int column = 0; column < Columns; column++) {
+				int targetRow = r < row ? r : r - 1;
+				result._data[result.Index(targetRow, column)] = _data[Index(r, column)];
+			}
+		}
+		return result;
+	}
+
+	public Matrix<T> RemoveColumn(int column) {
+		if (Columns < 2) throw new InvalidOperationException("Matrix must have at least two column");
+		CheckBoundsColumn(column);
+
+		Matrix<T> result = new(Rows, Columns - 1);
+		for (int row = 0; row < Rows; row++) {
+			for (int c = 0; c < Columns; c++) {
+				if (c == column) continue;
+				int targetColumn = c < column ? c : c - 1;
+				result._data[result.Index(row, targetColumn)] = _data[Index(row, c)];
+			}
+		}
+		return result;
+	}
+
 	public Matrix<T> MultiplyRow(int row, T value) {
 		CheckBoundsRow(row);
 
@@ -271,7 +301,7 @@ public class Matrix<T> : IEquatable<Matrix<T>> where T : INumber<T> { // IEnumer
 		if (Determinant() == T.Zero) throw new ArgumentException("Matrix is ​​not invertible");
 
 		Matrix<T> p = Identity(Rows);
-		Matrix<T> l = Identity(Rows);
+		Matrix<T> l = new(Rows, Columns);
 		Matrix<T> u = Clone();
 
 		for (int column = 0; column < Columns - 1; column++) {
@@ -286,6 +316,7 @@ public class Matrix<T> : IEquatable<Matrix<T>> where T : INumber<T> { // IEnumer
 				}
 			}
 			p = p.SwapRows(column, maxRow);
+			l = l.SwapRows(column, maxRow);
 			u = u.SwapRows(column, maxRow);
 
 			for (int row = column + 1; row < Rows; row++) {
@@ -296,6 +327,8 @@ public class Matrix<T> : IEquatable<Matrix<T>> where T : INumber<T> { // IEnumer
 				u = u.AddMultipliedRow(row, column, -factor);
 			}
 		}
+
+		l = l.Add(Identity(Rows));
 		return (p, l, u);
 	}
 
