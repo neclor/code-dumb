@@ -5,7 +5,7 @@ using System.Text;
 namespace MathLibrary;
 
 
-public class Matrix<T> : IEquatable<Matrix<T>> where T : INumber<T> { // IEnumerable<T>,
+public readonly struct Matrix<T> : IEquatable<Matrix<T>> where T : INumber<T> { // IEnumerable<T>,
 
 	private readonly T[] _data;
 
@@ -29,14 +29,14 @@ public class Matrix<T> : IEquatable<Matrix<T>> where T : INumber<T> { // IEnumer
 		_data = (T[])(values?.Clone() ?? new T[rows * columns]);
 	}
 
-	public static Matrix<T> operator +(Matrix<T> matrix) => matrix?.Clone() ?? throw new ArgumentNullException(nameof(matrix));
-	public static Matrix<T> operator -(Matrix<T> matrix) => matrix?.Negate() ?? throw new ArgumentNullException(nameof(matrix));
-	public static Matrix<T> operator +(Matrix<T> a, Matrix<T> b) => a?.Add(b) ?? throw new ArgumentNullException(nameof(a));
-	public static Matrix<T> operator -(Matrix<T> a, Matrix<T> b) => a?.Subtract(b) ?? throw new ArgumentNullException(nameof(a));
-	public static Matrix<T> operator *(Matrix<T> matrix, T value) => matrix?.Multiply(value) ?? throw new ArgumentNullException(nameof(matrix));
+	public static Matrix<T> operator +(Matrix<T> matrix) => matrix.Clone();
+	public static Matrix<T> operator -(Matrix<T> matrix) => matrix.Negate();
+	public static Matrix<T> operator +(Matrix<T> a, Matrix<T> b) => a.Add(b);
+	public static Matrix<T> operator -(Matrix<T> a, Matrix<T> b) => a.Subtract(b);
+	public static Matrix<T> operator *(Matrix<T> matrix, T value) => matrix.Multiply(value);
 	public static Matrix<T> operator *(T value, Matrix<T> matrix) => matrix * value;
-	public static Matrix<T> operator *(Matrix<T> a, Matrix<T> b) => a?.Multiply(b) ?? throw new ArgumentNullException(nameof(a));
-	public static Matrix<T> operator /(Matrix<T> matrix, T value) => matrix?.Divide(value) ?? throw new ArgumentNullException(nameof(matrix));
+	public static Matrix<T> operator *(Matrix<T> a, Matrix<T> b) => a.Multiply(b);
+	public static Matrix<T> operator /(Matrix<T> matrix, T value) => matrix.Divide(value);
 	public static bool operator ==(Matrix<T> a, Matrix<T> b) => Equals(a, b);
 	public static bool operator !=(Matrix<T> a, Matrix<T> b) => !(a == b);
 
@@ -70,7 +70,6 @@ public class Matrix<T> : IEquatable<Matrix<T>> where T : INumber<T> { // IEnumer
 	public Matrix<T> Negate() => Multiply(-T.One);
 
 	public Matrix<T> Add(Matrix<T> other) {
-		ArgumentNullException.ThrowIfNull(other);
 		if (Rows != other.Rows || Columns != other.Columns) throw new ArgumentException("The matrix dimensions do not match", nameof(other));
 
 		Matrix<T> result = Clone();
@@ -82,7 +81,6 @@ public class Matrix<T> : IEquatable<Matrix<T>> where T : INumber<T> { // IEnumer
 	}
 
 	public Matrix<T> Subtract(Matrix<T> other) {
-		ArgumentNullException.ThrowIfNull(other);
 		if (Rows != other.Rows || Columns != other.Columns) throw new ArgumentException("The matrix dimensions do not match", nameof(other));
 
 		Matrix<T> result = Clone();
@@ -103,7 +101,6 @@ public class Matrix<T> : IEquatable<Matrix<T>> where T : INumber<T> { // IEnumer
 	}
 
 	public Matrix<T> Multiply(Matrix<T> other) {
-		ArgumentNullException.ThrowIfNull(other);
 		if (Columns != other.Rows) throw new ArgumentException("The matrix dimensions do not match", nameof(other));
 
 		Matrix<T> result = new(Rows, other.Columns);
@@ -332,8 +329,8 @@ public class Matrix<T> : IEquatable<Matrix<T>> where T : INumber<T> { // IEnumer
 		return (p, l, u);
 	}
 
-	public bool Equals(Matrix<T>? other) {
-		if (other is null || Rows != other.Rows || Columns != other.Columns) return false;
+	public bool Equals(Matrix<T> other) {
+		if (Rows != other.Rows || Columns != other.Columns) return false;
 		for (int row = 0; row < Rows; row++) {
 			for (int column = 0; column < Columns; column++) {
 				if (_data[Index(row, column)] != other._data[other.Index(row, column)]) return false;
@@ -342,7 +339,7 @@ public class Matrix<T> : IEquatable<Matrix<T>> where T : INumber<T> { // IEnumer
 		return true;
 	}
 
-	public override bool Equals(object? obj) => Equals(obj as Matrix<T>);
+	public override bool Equals(object? obj) => obj is Matrix<T> m && Equals(m);
 
 	public override int GetHashCode() {
 		HashCode hash = new();

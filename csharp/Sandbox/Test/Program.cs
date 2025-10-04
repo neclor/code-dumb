@@ -7,8 +7,8 @@ namespace Test;
 internal class Program {
 
 	private static void Main() {
-		//DeterminantTest();
-		//InverseTest();
+		DeterminantTest();
+		InverseTest();
 		PLUDecompositionTest();
 		LinearSolverTest();
 	}
