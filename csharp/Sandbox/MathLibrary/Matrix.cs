@@ -373,19 +373,19 @@ public readonly struct Matrix<T> : IEquatable<Matrix<T>> where T : INumber<T> { 
 
 	private static int IndexFrom(int row, int column, int columns) => row * columns + column;
 
-	private int IndexFrom(int row, int column) => IndexFrom(row, column, Columns);
-
 	private static void CheckValueBounds<TValue>(TValue value, TValue min, TValue max) where TValue : IComparable<TValue> {
 		ArgumentOutOfRangeException.ThrowIfLessThan(value, min, nameof(value));
 		ArgumentOutOfRangeException.ThrowIfGreaterThan(value, max, nameof(value));
 	}
+
+	private int IndexFrom(int row, int column) => IndexFrom(row, column, Columns);
 
 	private void CheckBounds(int row, int column) {
 		CheckRowBounds(row);
 		CheckColumnBounds(column);
 	}
 
-	private void CheckRowBounds(int row) => CheckValueBounds(row, 0, Rows);
+	private void CheckRowBounds(int row) => CheckValueBounds(row, 0, Rows - 1);
 
-	private void CheckColumnBounds(int column) => CheckValueBounds(column, 0, Columns);
+	private void CheckColumnBounds(int column) => CheckValueBounds(column, 0, Columns - 1);
 }
