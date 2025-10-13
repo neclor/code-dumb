@@ -375,6 +375,11 @@ public readonly struct Matrix<T> : IEquatable<Matrix<T>> where T : INumber<T> { 
 
 	private int IndexFrom(int row, int column) => IndexFrom(row, column, Columns);
 
+	private static void CheckValueBounds<TValue>(TValue value, TValue min, TValue max) where TValue : IComparable<TValue> {
+		ArgumentOutOfRangeException.ThrowIfLessThan(value, min, nameof(value));
+		ArgumentOutOfRangeException.ThrowIfGreaterThan(value, max, nameof(value));
+	}
+
 	private void CheckBounds(int row, int column) {
 		CheckRowBounds(row);
 		CheckColumnBounds(column);
@@ -383,9 +388,4 @@ public readonly struct Matrix<T> : IEquatable<Matrix<T>> where T : INumber<T> { 
 	private void CheckRowBounds(int row) => CheckValueBounds(row, 0, Rows);
 
 	private void CheckColumnBounds(int column) => CheckValueBounds(column, 0, Columns);
-
-	private static void CheckValueBounds<TValue>(TValue value, TValue min, TValue max) where TValue : IComparable<TValue> {
-		ArgumentOutOfRangeException.ThrowIfLessThan(value, min, nameof(value));
-		ArgumentOutOfRangeException.ThrowIfGreaterThan(value, max, nameof(value));
-	}
 }
