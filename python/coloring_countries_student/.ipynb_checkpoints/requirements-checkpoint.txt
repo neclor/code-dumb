@@ -1,0 +1,4 @@
+matplotlib
+python-sat
+notebook
+geopandas
