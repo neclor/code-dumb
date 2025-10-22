@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="StrategyGame.Client/StrategyGame.Client.csproj" />
+  <Project Path="StrategyGame.Server/StrategyGame.Server.csproj" />
+  <Project Path="StrategyGame.Shared/StrategyGame.Shared.csproj" />
+</Solution>
