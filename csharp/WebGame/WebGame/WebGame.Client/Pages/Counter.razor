@@ -1,4 +1,4 @@
-@page "/counter"
+﻿@page "/counter"
 @rendermode InteractiveAuto
 
 <PageTitle>Counter</PageTitle>
@@ -12,8 +12,8 @@
 @code {
     private int currentCount = 0;
 
-    private void IncrementCount() {
+    private void IncrementCount()
+    {
         currentCount++;
-		Console.WriteLine($"[SERVER] Increment: {currentCount} aaaa");
     }
 }

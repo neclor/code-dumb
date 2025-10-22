@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="TODO.md" />
+  </Folder>
   <Project Path="StrategyGame.Client/StrategyGame.Client.csproj" />
   <Project Path="StrategyGame.Server/StrategyGame.Server.csproj" />
   <Project Path="StrategyGame.Shared/StrategyGame.Shared.csproj" />
