@@ -1,4 +1,4 @@
-import src.solution_template as st
+import solution_template as st
 
 # Necessary for visualization only
 import matplotlib.pylab as pl

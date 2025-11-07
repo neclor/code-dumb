@@ -15,13 +15,13 @@ def question1(M: int, N: int, i0: int, j0: int) -> tuple[list[list[int]], Glucos
 
 
 
-    soluton: list[list[int]] = [[-1 for _ in range(width)] for _ in range(height)]
+    solution: list[list[int]] = [[-1 for _ in range(width)] for _ in range(height)]
     solver: Glucose3 = Glucose3()
 
 
 
 
-
+    variables: list[int] = []
 
 
     # YOUR CODE HERE
