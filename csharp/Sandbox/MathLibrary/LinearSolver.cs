@@ -6,12 +6,6 @@ namespace MathLibrary;
 public static class LinearSolver {
 
 	public static Matrix<T> Solve<T>(Matrix<T> matrix) where T : IFloatingPointIeee754<T> {
-		ArgumentNullException.ThrowIfNull(matrix, nameof(matrix));
-
-		//(Matrix<T> p, Matrix<T> l, Matrix<T> u)
-
-
-
 
 		for (int column = 0; column < matrix.Columns - 1; column++) {
 
